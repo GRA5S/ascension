@@ -52,3 +52,7 @@ node_modules
 *.sql
 *.dump
 *.csv
+
+# Ignore key files for decrypting credentials and more.
+/config/*.key
+

@@ -115,7 +115,7 @@ Rails.application.routes.draw do
   root "landing#index"
 
   get "auth/hca/start" => "auth#new", as: :signin
-  get "auth/hca/callback" => "auth#create", as: :hca_callback
+  get "auth/hackclub/callback" => "auth#create", as: :hca_callback
   delete "auth/signout" => "auth#destroy", as: :signout
 
   get "sorry" => "bans#show", as: :sorry

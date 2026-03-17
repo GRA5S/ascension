@@ -7,11 +7,11 @@ module HcaService
   module_function
 
   def host
-    if Rails.env.production?
+    # if Rails.env.production?
       "https://auth.hackclub.com"
-    else
-      "https://hca.dinosaurbbq.org"
-    end
+    # else
+    #   "https://hca.dinosaurbbq.org"
+    # end
   end
 
   def backend_url(path = "")
