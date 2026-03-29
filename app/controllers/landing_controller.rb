@@ -1,9 +1,9 @@
-class LandingController < ApplicationController
-  allow_unauthenticated_access only: %i[index]
+# frozen_string_literal: true
+
+class LandingController < InertiaController
+  allow_unauthenticated_access only: [:index]
+  skip_before_action :redirect_banned_user!, only: [:index]
 
   def index
-    return redirect_to home_path if user_signed_in?
-
-    render inertia: "Landing/Index"
   end
 end

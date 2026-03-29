@@ -99,3 +99,10 @@ gem "pg_search", "~> 2.3"
 gem "inertia_rails", "~> 3.10"
 
 gem "vite_rails", "~> 3.0"
+
+gem "email_address", "~> 0.2.8"
+
+gem "loops_sdk", "~> 2.0"
+
+gem "posthog-ruby"
+gem "posthog-rails"

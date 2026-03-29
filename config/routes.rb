@@ -118,18 +118,23 @@ Rails.application.routes.draw do
   get "auth/hackclub/callback" => "auth#create", as: :hca_callback
   delete "auth/signout" => "auth#destroy", as: :signout
 
+  # Keep old routes for compatibility
   get "sorry" => "bans#show", as: :sorry
-
   get "home" => "home#index", as: :home
-
   resources :projects
-
   get "docs" => "markdown#show", as: :docs
   get "docs/*slug" => "markdown#show", as: :doc
+
+  # RSVP routes
+  get :landing, to: "landing#index"
+  resources :rsvps, only: :create
 
   namespace :api do
     namespace :v1 do
       resources :projects, only: [ :index, :show ]
     end
   end
+
+  match "*path", to: "errors#not_found", via: :all
 end
+

@@ -143,6 +143,9 @@ GEM
     drb (2.2.3)
     dry-cli (1.4.1)
     ed25519 (1.4.0)
+    email_address (0.2.8)
+      base64
+      simpleidn
     erb (6.0.1)
     erubi (1.13.1)
     et-orbi (1.4.0)
@@ -222,6 +225,8 @@ GEM
     loofah (2.25.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.12.0)
+    loops_sdk (2.0.0)
+      faraday
     mail (2.9.0)
       logger
       mini_mime (>= 0.1.1)
@@ -299,6 +304,11 @@ GEM
     pg_search (2.3.7)
       activerecord (>= 6.1)
       activesupport (>= 6.1)
+    posthog-rails (3.6.1)
+      posthog-ruby (~> 3.6)
+      railties (>= 5.2.0)
+    posthog-ruby (3.6.1)
+      concurrent-ruby (~> 1)
     pp (0.6.3)
       prettyprint
     prettyprint (0.2.0)
@@ -423,6 +433,7 @@ GEM
     sentry-ruby (5.28.1)
       bigdecimal
       concurrent-ruby (~> 1.0, >= 1.0.2)
+    simpleidn (0.2.3)
     skylight (7.0.0)
       activesupport (>= 7.1.0)
     slack-ruby-client (3.1.0)
@@ -529,6 +540,7 @@ DEPENDENCIES
   capybara
   debug
   dotenv-rails
+  email_address (~> 0.2.8)
   faraday (~> 2.13)
   geocoder
   image_processing (~> 1.2)
@@ -536,11 +548,14 @@ DEPENDENCIES
   jbuilder
   kamal
   letter_opener
+  loops_sdk (~> 2.0)
   mission_control-jobs (~> 1.1)
   pagy (~> 43.2)
   paper_trail (~> 17.0)
   pg (~> 1.5)
   pg_search (~> 2.3)
+  posthog-rails
+  posthog-ruby
   propshaft
   puma (>= 5.0)
   pundit (~> 2.4)

@@ -8,6 +8,8 @@ class ApplicationController < ActionController::Base
   before_action :track_ahoy_visit
 
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
+  rescue_from ActionController::RoutingError, with: :inertia_error_page
+  rescue_from ActiveRecord::RecordNotFound, with: :inertia_error_page
 
   # Only allow modern browsers supporting webp images, web push, badges, import maps, CSS nesting, and CSS :has.
   allow_browser versions: :modern
@@ -33,6 +35,14 @@ class ApplicationController < ActionController::Base
   inertia_share sign_out_path: -> { signout_path }
 
   private
+
+  def inertia_error_page(exception)
+    # raise exception if Rails.env.local?
+
+    status = ActionDispatch::ExceptionWrapper.new(nil, exception).status_code
+
+    render inertia: "ErrorPage", props: { status: }, status:
+  end
 
   def track_ahoy_visit
     if user_signed_in? && ahoy.visit && ahoy.visit.user_id != current_user.id
