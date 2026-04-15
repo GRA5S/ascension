@@ -23,6 +23,7 @@ class ApplicationController < ActionController::Base
           email: u.email,
           avatar: u.avatar,
           roles: u.roles,
+          hackatime_projects: u.hackatime_projects,
           is_admin: u.admin?,
           is_staff: u.staff?,
           is_banned: u.is_banned

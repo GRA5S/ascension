@@ -34,6 +34,7 @@ export interface User {
   verified: boolean
   created_at: string
   updated_at: string
+  hackatime_projects?: string[] 
   [key: string]: unknown // This allows for additional properties...
 }
 

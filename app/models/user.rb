@@ -7,6 +7,7 @@
 #  discarded_at        :datetime
 #  display_name        :string           not null
 #  email               :string           not null
+#  hackatime_projects  :jsonb
 #  hca_token           :text
 #  is_adult            :boolean          default(FALSE), not null
 #  is_banned           :boolean          default(FALSE), not null
@@ -22,6 +23,9 @@
 #
 #  index_users_on_discarded_at  (discarded_at)
 #
+require "net/http"
+require "json"
+
 class User < ApplicationRecord
   include Discardable
   include PgSearch::Model
@@ -128,7 +132,8 @@ class User < ApplicationRecord
     slack_id = identity["slack_id"] || ""
     verification_status = identity["verification_status"] || ""
     is_adult = determine_is_adult(identity)
-
+    hca_id = identity["id"]
+    hackatime_projects = get_hackatime_projects(hca_id)
     if email.blank? || !(email =~ URI::MailTo::EMAIL_REGEXP)
       Rails.logger.warn({
         event: "hca_user_missing_or_invalid_email",
@@ -154,9 +159,10 @@ class User < ApplicationRecord
       avatar: avatar,
       timezone: timezone,
       slack_id: slack_id,
+      hackatime_projects: hackatime_projects,
       verification_status: verification_status,
       hca_token: access_token,
-      hca_id: identity["id"],
+      hca_id: hca_id,
       is_adult: is_adult,
       is_banned: false,
       roles: [ "user" ]
@@ -228,7 +234,11 @@ class User < ApplicationRecord
   end
 
   private
-
+  def self.get_hackatime_projects(hca_id)
+    uri = URI("https://hackatime.hackclub.com/api/v1/users/#{hca_id}/projects")
+    r = Net::HTTP.get_response(uri)
+    JSON.parse(r.body)["projects"]
+  end
   def self.determine_is_adult(identity)
     birthday_str = identity["birthday"]
     return false if birthday_str.blank?

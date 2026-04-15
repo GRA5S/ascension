@@ -12,7 +12,7 @@ export default function ProjectsForm({
   submit_url: string
   method: string
 }) {
-  const { errors } = usePage<SharedProps>().props
+  const { errors, auth } = usePage<SharedProps>().props
 
   const form = useForm({
     name: project.name,
@@ -105,8 +105,7 @@ export default function ProjectsForm({
             placeholder="https://"
           />
         </div>
-
-        <div>
+        {/* <div>
           <label className="inline-flex items-center gap-2">
             <input
               type="checkbox"
@@ -116,6 +115,33 @@ export default function ProjectsForm({
             />
             <span className="text-sm text-gray-700">Unlisted</span>
           </label>
+        </div> */}
+
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-2">
+           Hackatime Projects
+          </label>
+          <div className="space-y-2">
+            {auth.user?.hackatime_projects?.map((proj: string) => (
+              <label key={proj} className="inline-flex items-center gap-2">
+                <input
+                  type="checkbox"
+                  value={proj}
+                  // checked={form.data.hackatime_projects?.includes(proj) || false}
+                  // onChange={(e) => {
+                  //   const selected = form.data.hackatime_projects || []
+                  //   if (e.target.checked) {
+                  //     form.setData('hackatime_projects', [...selected, proj])
+                  //   } else {
+                  //     form.setData('hackatime_projects', selected.filter(p => p !== proj))
+                  //   }
+                  // }}
+                  className="rounded border-gray-300"
+                />
+                <span className="text-sm text-gray-700">{proj}</span>
+              </label>
+            ))}
+          </div>
         </div>
 
         <div>
