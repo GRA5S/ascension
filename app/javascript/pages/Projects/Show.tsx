@@ -47,6 +47,7 @@ export default function ProjectsShow({
       )}
 
       {project.description && <p className="text-gray-700 mb-4">{project.description}</p>}
+      {project.description && <p className="text-gray-700 mb-4">aa {project.hackatime_projects.length}</p>}
 
       {project.tags.length > 0 && (
         <div className="flex flex-wrap gap-2 mb-4">

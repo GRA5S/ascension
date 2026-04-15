@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_04_14_205502) do
+ActiveRecord::Schema[8.1].define(version: 2026_04_15_185346) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -90,6 +90,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_14_205502) do
     t.string "demo_link"
     t.text "description"
     t.datetime "discarded_at"
+    t.string "hackatime_projects", default: [], null: false, array: true
     t.boolean "is_unlisted", default: false, null: false
     t.string "name", null: false
     t.string "repo_link"

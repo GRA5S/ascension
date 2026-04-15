@@ -30,7 +30,7 @@ class ProjectsController < ApplicationController
     authorize @project
 
     render inertia: "Projects/Form", props: {
-      project: { name: "", description: "", demo_link: "", repo_link: "", is_unlisted: false, tags: [] },
+      project: { name: "", description: "", demo_link: "", repo_link: "", is_unlisted: false, tags: [], hackatime_projects: [] },
       title: "New Project",
       submit_url: projects_path,
       method: "post"
@@ -59,7 +59,8 @@ class ProjectsController < ApplicationController
         demo_link: @project.demo_link.to_s,
         repo_link: @project.repo_link.to_s,
         is_unlisted: @project.is_unlisted,
-        tags: @project.tags
+        tags: @project.tags,
+        hackatime_projects: @project.hackatime_projects
       },
       title: "Edit Project",
       submit_url: project_path(@project),
@@ -90,7 +91,7 @@ class ProjectsController < ApplicationController
   end
 
   def project_params
-    params.expect(project: [ :name, :description, :demo_link, :repo_link, :is_unlisted, tags: [] ])
+    params.expect(project: [ :name, :description, :demo_link, :repo_link, :is_unlisted, tags: [], hackatime_projects: [] ])
   end
 
   def serialize_project_card(project)
@@ -101,7 +102,8 @@ class ProjectsController < ApplicationController
       is_unlisted: project.is_unlisted,
       tags: project.tags,
       user_display_name: project.user.display_name,
-      ships_count: project.ships.size
+      ships_count: project.ships.size,
+      hackatime_projects: project.hackatime_projects
     }
   end
 
@@ -115,7 +117,8 @@ class ProjectsController < ApplicationController
       is_unlisted: project.is_unlisted,
       tags: project.tags,
       user_display_name: project.user.display_name,
-      created_at: project.created_at.strftime("%B %d, %Y")
+      created_at: project.created_at.strftime("%B %d, %Y"),
+      hackatime_projects: project.hackatime_projects
     }
   end
 end

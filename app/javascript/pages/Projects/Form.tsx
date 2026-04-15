@@ -21,6 +21,7 @@ export default function ProjectsForm({
     repo_link: project.repo_link,
     is_unlisted: project.is_unlisted,
     tags: project.tags,
+    hackatime_projects: project.hackatime_projects,
   })
 
   function submit(e: React.FormEvent) {
@@ -122,23 +123,23 @@ export default function ProjectsForm({
            Hackatime Projects
           </label>
           <div className="grid grid-cols-3 gap-2">
-            {auth.user?.hackatime_projects?.map((proj: string) => (
-              <label key={proj} className="inline-flex items-center gap-2">
+            {auth.user?.hackatime_projects?.map((proj) => (
+              <label key={proj.name} className="inline-flex items-center gap-2">
                 <input
                   type="checkbox"
-                  value={proj}
-                  // checked={form.data.hackatime_projects?.includes(proj) || false}
-                  // onChange={(e) => {
-                  //   const selected = form.data.hackatime_projects || []
-                  //   if (e.target.checked) {
-                  //     form.setData('hackatime_projects', [...selected, proj])
-                  //   } else {
-                  //     form.setData('hackatime_projects', selected.filter(p => p !== proj))
-                  //   }
-                  // }}
+                  value={proj.name}
+                  checked={form.data.hackatime_projects?.includes(proj.name) || false}
+                  onChange={(e) => {
+                    const selected = form.data.hackatime_projects || []
+                    if (e.target.checked) {
+                      form.setData('hackatime_projects', [...selected, proj.name])
+                    } else {
+                      form.setData('hackatime_projects', selected.filter(p => p !== proj.name))
+                    }
+                  }}
                   className="rounded border-gray-300"
                 />
-                <span className="text-sm text-gray-700">{proj}</span>
+                <span className="text-sm text-gray-700">{proj.name}</span>
               </label>
             ))}
           </div>

@@ -24,6 +24,7 @@ export interface FlashData {
 
 export interface SharedProps {
   auth: Auth
+  [key: string]: unknown
 }
 
 export interface User {
@@ -34,8 +35,19 @@ export interface User {
   verified: boolean
   created_at: string
   updated_at: string
-  hackatime_projects?: string[] 
-  [key: string]: unknown // This allows for additional properties...
+  hackatime_projects?: { name: string; text: string; hours: number; minutes: number; total_seconds: number;  }[]
+  [key: string]: unknown
+}
+
+export interface ProjectForm {
+  id?: number
+  name: string
+  description: string
+  demo_link: string
+  repo_link: string
+  is_unlisted: boolean
+  tags: string[]
+  hackatime_projects: string[]
 }
 
 export interface Session {

@@ -146,7 +146,6 @@ GEM
     email_address (0.2.8)
       base64
       simpleidn
-    erb (6.0.1)
     erubi (1.13.1)
     et-orbi (1.4.0)
       tzinfo
@@ -317,9 +316,7 @@ GEM
       actionpack (>= 7.0.0)
       activesupport (>= 7.0.0)
       rack
-    psych (5.3.1)
-      date
-      stringio
+    psych (3.3.4)
     public_suffix (7.0.2)
     puma (7.2.0)
       nio4r (~> 2.0)
@@ -371,10 +368,7 @@ GEM
       zeitwerk (~> 2.6)
     rainbow (3.1.1)
     rake (13.3.1)
-    rdoc (7.2.0)
-      erb
-      psych (>= 4.0.0)
-      tsort
+    rdoc (6.3.4.1)
     redcarpet (3.6.1)
     redis (5.4.1)
       redis-client (>= 0.22.0)
@@ -475,7 +469,6 @@ GEM
       ostruct
     stimulus-rails (1.3.4)
       railties (>= 6.0.0)
-    stringio (3.2.0)
     thor (1.5.0)
     thruster (0.1.18)
     thruster (0.1.18-aarch64-linux)
@@ -557,6 +550,7 @@ DEPENDENCIES
   posthog-rails
   posthog-ruby
   propshaft
+  psych (< 4)
   puma (>= 5.0)
   pundit (~> 2.4)
   rack-attack (~> 6.7)
