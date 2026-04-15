@@ -235,9 +235,9 @@ class User < ApplicationRecord
 
   private
   def self.get_hackatime_projects(hca_id)
-    uri = URI("https://hackatime.hackclub.com/api/v1/users/#{hca_id}/projects")
+    uri = URI("https://hackatime.hackclub.com/api/v1/users/#{hca_id}/stats?features=projects")
     r = Net::HTTP.get_response(uri)
-    JSON.parse(r.body)["projects"]
+    JSON.parse(r.body)["data"]["projects"].map { |item| item["name"] }
   end
   def self.determine_is_adult(identity)
     birthday_str = identity["birthday"]
