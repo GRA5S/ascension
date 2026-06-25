@@ -233,9 +233,14 @@ class User < ApplicationRecord
     earliest_visit_with_ref&.utm_source
   end
 
+  def refresh_hackatime_projects!
+    update_column(:hackatime_projects, self.class.get_hackatime_projects(hca_id) || [])
+  end
   private
+
   def self.get_hackatime_projects(hca_id)
-    uri = URI("https://hackatime.hackclub.com/api/v1/users/#{hca_id}/stats?features=projects")
+    uri = URI("https://hackatime.hackclub.com/api/v1/users/#{hca_id}/stats?features=projects&start_date=2026-06-17T17:27:57.000Z")
+
     r = Net::HTTP.get_response(uri)
     JSON.parse(r.body)["data"]["projects"]# .map { |item| item["name"] }
   end

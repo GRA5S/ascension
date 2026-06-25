@@ -26,6 +26,7 @@ class ProjectsController < ApplicationController
   end
 
   def new
+    current_user.refresh_hackatime_projects!
     @project = current_user.projects.build
     authorize @project
 
@@ -103,7 +104,8 @@ class ProjectsController < ApplicationController
       tags: project.tags,
       user_display_name: project.user.display_name,
       ships_count: project.ships.size,
-      hackatime_projects: project.hackatime_projects
+      hackatime_projects: project.hackatime_projects,
+      hours: project.hackatime_hours
     }
   end
 
@@ -118,7 +120,8 @@ class ProjectsController < ApplicationController
       tags: project.tags,
       user_display_name: project.user.display_name,
       created_at: project.created_at.strftime("%B %d, %Y"),
-      hackatime_projects: project.hackatime_projects
+      hackatime_projects: project.hackatime_projects,
+      hours: project.hackatime_hours
     }
   end
 end
