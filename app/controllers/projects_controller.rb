@@ -1,5 +1,5 @@
 class ProjectsController < ApplicationController
-  before_action :set_project, only: %i[show edit update destroy]
+  before_action :set_project, only: %i[show edit update destroy devlog]
 
   def index
     scope = policy_scope(Project).includes(:user, :ships)
@@ -68,6 +68,13 @@ class ProjectsController < ApplicationController
       method: "patch"
     }
   end
+  def devlog
+    authorize @project
+    render inertia: "Projects/Devlog", props: {
+      devlog: { title: "", body: "", images: [] },
+      submit_url: project_devlogs_path(@project)
+    }
+  end
 
   def update
     authorize @project
@@ -115,6 +122,7 @@ class ProjectsController < ApplicationController
       demo_link: project.demo_link,
       repo_link: project.repo_link,
       is_unlisted: project.is_unlisted,
+      devlogs: project.devlogs.map { |d| { id: d.id, title: d.title, body: d.body, images: d.images, created_at: d.created_at } },
       tags: project.tags,
       user_display_name: project.user.display_name,
       created_at: project.created_at.strftime("%B %d, %Y"),

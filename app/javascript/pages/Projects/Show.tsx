@@ -40,9 +40,11 @@ export default function ProjectsShow({
               Edit
             </Link>
           )}
-          <button onClick={shipProject} className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
-            Ship
-          </button>
+          {can.update && (
+            <button onClick={shipProject} className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+              Ship
+            </button>
+          )}
           {can.destroy && (
             <button onClick={deleteProject} className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700">
               Delete
@@ -56,7 +58,7 @@ export default function ProjectsShow({
       )}
 
       {project.description && <p className="text-gray-700 mb-4">{project.description}</p>}
-      {project.description && <p className="text-gray-700 mb-4">aa {project.hours}</p>}
+      {project.description && <p className="text-gray-700 mb-4">{project.hours}hrs tracked</p>}
 
       {project.tags.length > 0 && (
         <div className="flex flex-wrap gap-2 mb-4">
@@ -80,8 +82,32 @@ export default function ProjectsShow({
           </a>
         )}
       </div>
+      {can.update && (
+        <Link href={`/projects/${project.id}/devlog`} className="bg-gray-200 px-4 py-2 rounded hover:bg-gray-300">
+          Create Devlog
+        </Link>
+      )}
+      <br></br>
+      {project.devlogs.map((devlog) => (
+        <span key={devlog.id} className="bg-gray-100 text-gray-700 px-2 py-1 rounded w-full block my-5">
+          <div className="flex flex-col">
+            <h1 className='text-3xl w-full flex justify-center'>{devlog.title}</h1>
+            <h2 className='text-xl w-full flex justify-center'>{devlog.body}</h2>
+            <div className="flex overflow-x-auto snap-x snap-mandatory gap-4">
+              {devlog.images.map(image => (
+                <div key={image} className="snap-start shrink-0 w-80">
+                  <img src={image}></img>
+                </div>
+              ))}
+            </div>
+          </div>
+          
+          <br></br>
+        </span>
+        
+      ))}
 
-      <p className="text-sm text-gray-500">
+      <p className="text-sm text-gray-500 mt-10">
         Created by {project.user_display_name} on {project.created_at}
       </p>
     </div>

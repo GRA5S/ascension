@@ -49,6 +49,34 @@ export interface ProjectForm {
   tags: string[]
   hackatime_projects: string[]
 }
+export interface Devlog {
+  id?: number
+  title: string
+  body: string
+  images: string[]
+}
+
+export interface DevlogDetail {
+  id: number
+  title: string
+  body: string
+  images: string[]
+  created_at: string
+}
+
+export interface ProjectDetail {
+  id: number
+  name: string
+  description: string
+  demo_link: string | null
+  repo_link: string | null
+  is_unlisted: boolean
+  devlogs: DevlogDetail[]
+  tags: string[]
+  user_display_name: string
+  created_at: string
+  hours: number
+}
 
 export interface Session {
   id: string

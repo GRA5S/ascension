@@ -85,6 +85,16 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_15_185346) do
     t.index ["visitor_token", "started_at"], name: "index_ahoy_visits_on_visitor_token_and_started_at"
   end
 
+  create_table "devlogs", force: :cascade do |t|
+    t.text "body"
+    t.datetime "created_at", null: false
+    t.string "images", default: [], null: false, array: true
+    t.bigint "project_id", null: false
+    t.string "title", null: false
+    t.datetime "updated_at", null: false
+    t.index ["project_id"], name: "index_devlogs_on_project_id"
+  end
+
   create_table "projects", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "demo_link"
@@ -169,6 +179,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_15_185346) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "devlogs", "projects"
   add_foreign_key "projects", "users"
   add_foreign_key "sessions", "users"
   add_foreign_key "ships", "projects"

@@ -118,8 +118,11 @@ Rails.application.routes.draw do
   get "auth/hackclub/callback" => "auth#create", as: :hca_callback
   delete "auth/signout" => "auth#destroy", as: :signout
 
-  resources :projects
-  resources :ships, only: [:create]
+  resources :projects do
+    get :devlog, on: :member
+    resources :devlogs, only: [ :create ]
+  end
+  resources :ships, only: [ :create ]
 
   # Keep old routes for compatibility
   get "sorry" => "bans#show", as: :sorry
@@ -139,4 +142,3 @@ Rails.application.routes.draw do
 
   match "*path", to: "errors#not_found", via: :all
 end
-

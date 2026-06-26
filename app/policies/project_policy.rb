@@ -24,6 +24,10 @@ class ProjectPolicy < ApplicationPolicy
     admin? || owner?
   end
 
+  def devlog?
+    update?
+  end
+
   class Scope < ApplicationPolicy::Scope
     def resolve
       if user&.admin?
