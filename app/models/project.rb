@@ -43,4 +43,21 @@ class Project < ApplicationRecord
   validates :repo_link, format: { with: /\Ahttps?:\/\/\S+\z/i, message: "must be a valid URL starting with http:// or https://" }, allow_blank: true
 
   scope :listed, -> { where(is_unlisted: false) }
+
+  def get_hours
+    seconds = 0
+    hackatime_projects.each do |project|
+      begin
+        uri = URI("https://hackatime.hackclub.com/api/v1/users/#{user.hca_id}/projects/details?projects=#{project}")
+
+        r = Net::HTTP.get_response(uri)
+        seconds += JSON.parse(r.body)["projects"][0]["total_seconds"]
+        puts seconds
+      rescue StandardError => e
+        Rails.logger.warn("Project#get_hours: skipping project=#{project} due to error: #{e.class} - #{e.message}")
+        next
+      end
+    end
+    seconds / 3600
+  end
 end

@@ -118,10 +118,12 @@ Rails.application.routes.draw do
   get "auth/hackclub/callback" => "auth#create", as: :hca_callback
   delete "auth/signout" => "auth#destroy", as: :signout
 
+  resources :projects
+  resources :ships, only: [:create]
+
   # Keep old routes for compatibility
   get "sorry" => "bans#show", as: :sorry
   get "home" => "home#index", as: :home
-  resources :projects
   get "docs" => "markdown#show", as: :docs
   get "docs/*slug" => "markdown#show", as: :doc
 

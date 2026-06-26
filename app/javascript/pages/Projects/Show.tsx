@@ -24,6 +24,12 @@ export default function ProjectsShow({
     }
   }
 
+  function shipProject() {
+    if (confirm('Submit this project for review?')) {
+      router.post(`/ships`, { project_id: project.id })
+    }
+  }
+
   return (
     <div className="max-w-4xl mx-auto py-8">
       <div className="flex items-center justify-between mb-6">
@@ -34,6 +40,9 @@ export default function ProjectsShow({
               Edit
             </Link>
           )}
+          <button onClick={shipProject} className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+            Ship
+          </button>
           {can.destroy && (
             <button onClick={deleteProject} className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700">
               Delete
@@ -47,7 +56,7 @@ export default function ProjectsShow({
       )}
 
       {project.description && <p className="text-gray-700 mb-4">{project.description}</p>}
-      {project.description && <p className="text-gray-700 mb-4">aa {project.hackatime_projects.length}</p>}
+      {project.description && <p className="text-gray-700 mb-4">aa {project.hours}</p>}
 
       {project.tags.length > 0 && (
         <div className="flex flex-wrap gap-2 mb-4">
