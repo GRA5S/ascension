@@ -108,6 +108,7 @@ class ProjectsController < ApplicationController
       name: project.name,
       description: project.description&.truncate(200),
       is_unlisted: project.is_unlisted,
+      discarded_at: project.discarded_at,
       tags: project.tags,
       user_display_name: project.user.display_name,
       ships_count: project.ships.size,
