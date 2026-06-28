@@ -2,28 +2,52 @@ import { useState } from 'react'
 import { router, Link } from '@inertiajs/react'
 import Pagination from '@/components/Pagination'
 import type { ProjectCard, PagyProps } from '@/types'
+import ProjectsForm from './Form' 
 
 export default function ProjectsIndex({
   projects,
   pagy,
   query,
+  show_new_modal,
+  hackatime_projects,
 }: {
   projects: ProjectCard[]
   pagy: PagyProps
   query: string
+  show_new_modal?: boolean
+  hackatime_projects: any[]
 }) {
   const [searchQuery, setSearchQuery] = useState(query)
-
+  
   function search(e: React.FormEvent) {
     e.preventDefault()
     router.get('/projects', { query: searchQuery }, { preserveState: true })
+  }
+
+  function closeModal() {
+    router.get('/projects', {}, { preserveState: true, preserveScroll: true })
+  }
+
+  const emptyProjectTemplate = {
+    name: '',
+    description: '',
+    demo_link: '',
+    repo_link: '',
+    is_unlisted: false,
+    tags: [],
+    hackatime_projects: []
   }
 
   return (
     <div className="max-w-4xl mx-auto py-8">
       <div className="flex items-center justify-between mb-6">
         <h1 className="font-bold text-4xl">Projects</h1>
-        <Link href="/projects/new" className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+        <Link 
+          href="/projects?new=true"
+          preserveState
+          preserveScroll
+          className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+        >
           New Project
         </Link>
       </div>
@@ -83,6 +107,29 @@ export default function ProjectsIndex({
         </>
       ) : (
         <p className="text-gray-500">No projects yet.</p>
+      )}
+      {show_new_modal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm">
+          <div className="absolute inset-0" onClick={closeModal} />
+          
+          <div className="relative bg-white p-6 rounded-xl shadow-2xl max-w-xl w-full z-10 max-h-[90vh] overflow-y-auto m-4">
+            <button 
+              onClick={closeModal} 
+              className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 font-bold text-lg cursor-pointer z-20"
+            >
+              ✕
+            </button>
+            
+            {/* Mount the shared template directly inside the viewport box */}
+            <ProjectsForm 
+              project={emptyProjectTemplate}
+              title="Create a New Project"
+              submit_url="/projects"
+              method="post"
+              fallback_hackatime_projects={hackatime_projects}
+            />
+          </div>
+        </div>
       )}
     </div>
   )

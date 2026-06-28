@@ -6,13 +6,16 @@ export default function ProjectsForm({
   title,
   submit_url,
   method,
+  fallback_hackatime_projects,
 }: {
   project: ProjectForm
   title: string
   submit_url: string
   method: string
+  fallback_hackatime_projects: any[]
 }) {
   const { errors, auth } = usePage<SharedProps>().props
+  const availableProjects = auth.user?.hackatime_projects || fallback_hackatime_projects || []
 
   const form = useForm({
     name: project.name,
@@ -123,7 +126,7 @@ export default function ProjectsForm({
            Hackatime Projects
           </label>
           <div className="grid grid-cols-3 gap-2">
-            {auth.user?.hackatime_projects?.map((proj) => (
+            {availableProjects.map((proj) => (
               <label key={proj.name} className="inline-flex items-center gap-2">
                 <input
                   type="checkbox"

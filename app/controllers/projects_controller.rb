@@ -6,10 +6,17 @@ class ProjectsController < ApplicationController
     scope = scope.search(params[:query]) if params[:query].present?
     @pagy, @projects = pagy(scope.order(created_at: :desc))
 
+    hackatime_list = []
+    if params[:new] == "true"
+      hackatime_list = current_user.refresh_hackatime_projects! rescue []
+    end
+
     render inertia: "Projects/Index", props: {
       projects: @projects.map { |p| serialize_project_card(p) },
       pagy: pagy_props(@pagy),
-      query: params[:query].to_s
+      query: params[:query].to_s,
+      show_new_modal: params[:new] == "true",
+      hackatime_projects: hackatime_list # Pass explicitly here!
     }
   end
 
