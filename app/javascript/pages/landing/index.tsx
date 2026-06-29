@@ -1,15 +1,15 @@
-import { Form, Head } from "@inertiajs/react"
-import posthog from "posthog-js"
-import { toast } from "sonner"
+import { Form, Head } from '@inertiajs/react'
+import posthog from 'posthog-js'
+import { toast } from 'sonner'
 
-import ascensionHero from "@/assets/illustrations/ascensionHeroSVG.svg"
-import heroInputScrollTexture from "@/assets/illustrations/heroInput-scrollTexture.svg"
-import { Button } from "@/components/ui/button"
-import { SpinnerCustom } from "@/components/ui/spinner"
+import ascensionHero from '@/assets/illustrations/ascensionHeroSVG.svg'
+import heroInputScrollTexture from '@/assets/illustrations/heroInput-scrollTexture.svg'
+import { Button } from '@/components/ui/button'
+import { SpinnerCustom } from '@/components/ui/spinner'
 
-import "./landing.css"
-import "./landing.desktop.css"
-import "./landing.mobile.css"
+import './landing.css'
+import './landing.desktop.css'
+import './landing.mobile.css'
 
 export default function Landing() {
   return (
@@ -22,35 +22,25 @@ export default function Landing() {
           size="ctaSecondary"
           type="button"
           onClick={() => {
-            posthog.capture("auth_login_clicked", { provider: "hackclub" })
-            window.location.href = "/auth/hca/start"
+            posthog.capture('auth_login_clicked', { provider: 'hackclub' })
+            window.location.href = '/auth/hca/start'
           }}
         >
           login →
         </Button>
-        <img
-          className="landing-page__logo"
-          src={ascensionHero}
-          alt="Ascension"
-          width={1048}
-          height={313}
-        />
+        <img className="landing-page__logo" src={ascensionHero} alt="Ascension" width={1048} height={313} />
         <h1 className="landing-page__headline">
           <span className="landing-page__headline-part">
-            make projects <span aria-hidden="true">✦</span>{" "}
+            make projects <span aria-hidden="true">✦</span>{' '}
           </span>
-          <span className="landing-page__headline-part-italic">
-            get prizes.
-          </span>
+          <span className="landing-page__headline-part-italic">get prizes.</span>
         </h1>
         <Form
           method="post"
           action="/rsvps"
           onBefore={(visit) => {
-            const email = (visit.data as FormData).get?.("email") as
-              | string
-              | null
-            posthog.capture("rsvp_form_submitted", { email })
+            const email = (visit.data as FormData).get?.('email') as string | null
+            posthog.capture('rsvp_form_submitted', { email })
             if (email) posthog.identify(email, { email })
           }}
           onError={(errors) => {
@@ -59,7 +49,7 @@ export default function Landing() {
               .filter(Boolean)
 
             if (values.length === 0) {
-              toast.error("Something went wrong. Please try again.")
+              toast.error('Something went wrong. Please try again.')
               return
             }
 
@@ -70,11 +60,7 @@ export default function Landing() {
         >
           {({ errors, processing }) => (
             <>
-              <div
-                className="cta-email"
-                role="group"
-                aria-label="Email call to action"
-              >
+              <div className="cta-email" role="group" aria-label="Email call to action">
                 <div className="cta-email__field-wrap">
                   <input
                     className="cta-email__input"
@@ -103,19 +89,10 @@ export default function Landing() {
                   height={40}
                 />
               </div>
-              {errors.email ? (
-                <p className="mt-2 text-center text-sm text-white">
-                  {errors.email}
-                </p>
-              ) : null}
+              {errors.email ? <p className="mt-2 text-center text-sm text-white">{errors.email}</p> : null}
               <div className="cta-button-anchor">
-                <Button
-                  className="cta-button"
-                  variant="cta"
-                  type="submit"
-                  disabled={processing}
-                >
-                  {processing ? <SpinnerCustom /> : "Await your Ascension →"}
+                <Button className="cta-button" variant="cta" type="submit" disabled={processing}>
+                  {processing ? <SpinnerCustom /> : 'Await your Ascension →'}
                 </Button>
               </div>
             </>

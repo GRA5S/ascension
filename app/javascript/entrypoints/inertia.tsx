@@ -1,13 +1,13 @@
-import type { ResolvedComponent } from "@inertiajs/react"
-import { createInertiaApp } from "@inertiajs/react"
-import posthog from "posthog-js"
-import { StrictMode } from "react"
-import { createRoot } from "react-dom/client"
+import type { ResolvedComponent } from '@inertiajs/react'
+import { createInertiaApp } from '@inertiajs/react'
+import posthog from 'posthog-js'
+import { StrictMode } from 'react'
+import { createRoot } from 'react-dom/client'
 
-import { initializeTheme } from "@/hooks/use-appearance"
-import PersistentLayout from "@/layouts/persistent-layout"
+import { initializeTheme } from '@/hooks/use-appearance'
+import PersistentLayout from '@/layouts/persistent-layout'
 
-const appName = "Ascension"
+const appName = 'Ascension'
 
 void createInertiaApp({
   // Set default page title
@@ -16,12 +16,9 @@ void createInertiaApp({
   title: (title) => (title ? `${title} - ${appName}` : appName),
 
   resolve: (name) => {
-    const pages = import.meta.glob<{ default: ResolvedComponent }>(
-      "../pages/**/*.tsx",
-      {
-        eager: true,
-      },
-    )
+    const pages = import.meta.glob<{ default: ResolvedComponent }>('../pages/**/*.tsx', {
+      eager: true,
+    })
     const page = pages[`../pages/${name}.tsx`]
     if (!page) {
       console.error(`Missing Inertia page component: '${name}.tsx'`)
@@ -44,7 +41,7 @@ void createInertiaApp({
     if (sharedProps.posthog?.key) {
       posthog.init(sharedProps.posthog.key, {
         api_host: sharedProps.posthog.host ?? undefined,
-        person_profiles: "identified_only",
+        person_profiles: 'identified_only',
       })
     }
 
@@ -74,18 +71,18 @@ void createInertiaApp({
   },
 
   progress: {
-    color: "#4B5563",
+    color: '#4B5563',
   },
 }).catch((error) => {
   // This ensures this entrypoint is only loaded on Inertia pages
   // by checking for the presence of the root element (#app by default).
   // Feel free to remove this `catch` if you don't need it.
-  if (document.getElementById("app")) {
+  if (document.getElementById('app')) {
     throw error
   } else {
     console.error(
-      "Missing root element.\n\n" +
-        "If you see this error, it probably means you loaded Inertia.js on non-Inertia pages.\n" +
+      'Missing root element.\n\n' +
+        'If you see this error, it probably means you loaded Inertia.js on non-Inertia pages.\n' +
         'Consider moving <%= vite_typescript_tag "inertia" %> to the Inertia-specific layout instead.',
     )
   }

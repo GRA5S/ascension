@@ -1,57 +1,55 @@
-import { useCallback, useEffect, useState } from "react"
+import { useCallback, useEffect, useState } from 'react'
 
-export type Appearance = "light" | "dark" | "system"
+export type Appearance = 'light' | 'dark' | 'system'
 
 const prefersDark = () => {
-  if (typeof window === "undefined") {
+  if (typeof window === 'undefined') {
     return false
   }
-  return window.matchMedia("(prefers-color-scheme: dark)").matches
+  return window.matchMedia('(prefers-color-scheme: dark)').matches
 }
 
 const applyTheme = (appearance: Appearance) => {
-  const isDark =
-    appearance === "dark" || (appearance === "system" && prefersDark())
+  const isDark = appearance === 'dark' || (appearance === 'system' && prefersDark())
 
-  document.documentElement.classList.toggle("dark", isDark)
-  document.documentElement.style.colorScheme = isDark ? "dark" : "light"
+  document.documentElement.classList.toggle('dark', isDark)
+  document.documentElement.style.colorScheme = isDark ? 'dark' : 'light'
 }
 
 const mediaQuery = () => {
-  if (typeof window === "undefined") {
+  if (typeof window === 'undefined') {
     return null
   }
 
-  return window.matchMedia("(prefers-color-scheme: dark)")
+  return window.matchMedia('(prefers-color-scheme: dark)')
 }
 
 const handleSystemThemeChange = () => {
-  const currentAppearance = localStorage.getItem("appearance") as Appearance
-  applyTheme(currentAppearance ?? "system")
+  const currentAppearance = localStorage.getItem('appearance') as Appearance
+  applyTheme(currentAppearance ?? 'system')
 }
 
 export function initializeTheme() {
-  const savedAppearance =
-    (localStorage.getItem("appearance") as Appearance) || "system"
+  const savedAppearance = (localStorage.getItem('appearance') as Appearance) || 'system'
 
   applyTheme(savedAppearance)
 
-  mediaQuery()?.addEventListener("change", handleSystemThemeChange)
+  mediaQuery()?.addEventListener('change', handleSystemThemeChange)
 }
 
 export function useAppearance() {
   const [appearance, setAppearance] = useState<Appearance>(() => {
-    if (typeof window === "undefined") return "system"
-    const saved = localStorage.getItem("appearance") as Appearance | null
-    return saved ?? "system"
+    if (typeof window === 'undefined') return 'system'
+    const saved = localStorage.getItem('appearance') as Appearance | null
+    return saved ?? 'system'
   })
 
   const updateAppearance = useCallback((mode: Appearance) => {
     setAppearance(mode)
-    if (mode === "system") {
-      localStorage.removeItem("appearance")
+    if (mode === 'system') {
+      localStorage.removeItem('appearance')
     } else {
-      localStorage.setItem("appearance", mode)
+      localStorage.setItem('appearance', mode)
     }
     applyTheme(mode)
   }, [])
@@ -59,8 +57,7 @@ export function useAppearance() {
   useEffect(() => {
     applyTheme(appearance)
 
-    return () =>
-      mediaQuery()?.removeEventListener("change", handleSystemThemeChange)
+    return () => mediaQuery()?.removeEventListener('change', handleSystemThemeChange)
   }, [appearance])
 
   return { appearance, updateAppearance } as const

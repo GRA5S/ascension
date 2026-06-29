@@ -122,9 +122,7 @@ export default function ProjectsForm({
         </div> */}
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
-           Hackatime Projects
-          </label>
+          <label className="block text-sm font-medium text-gray-700 mb-2">Hackatime Projects</label>
           <div className="grid grid-cols-3 gap-2">
             {availableProjects.map((proj) => (
               <label key={proj.name} className="inline-flex items-center gap-2">
@@ -137,7 +135,10 @@ export default function ProjectsForm({
                     if (e.target.checked) {
                       form.setData('hackatime_projects', [...selected, proj.name])
                     } else {
-                      form.setData('hackatime_projects', selected.filter(p => p !== proj.name))
+                      form.setData(
+                        'hackatime_projects',
+                        selected.filter((p) => p !== proj.name),
+                      )
                     }
                   }}
                   className="rounded border-gray-300"

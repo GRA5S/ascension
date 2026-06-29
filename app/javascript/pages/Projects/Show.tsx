@@ -91,20 +91,19 @@ export default function ProjectsShow({
       {project.devlogs.map((devlog) => (
         <span key={devlog.id} className="bg-gray-100 text-gray-700 px-2 py-1 rounded w-full block my-5">
           <div className="flex flex-col">
-            <h1 className='text-3xl w-full flex justify-center'>{devlog.title}</h1>
-            <h2 className='text-xl w-full flex justify-center'>{devlog.body}</h2>
+            <h1 className="text-3xl w-full flex justify-center">{devlog.title}</h1>
+            <h2 className="text-xl w-full flex justify-center">{devlog.body}</h2>
             <div className="flex overflow-x-auto snap-x snap-mandatory gap-4">
-              {devlog.images.map(image => (
+              {devlog.images.map((image) => (
                 <div key={image} className="snap-start shrink-0 w-80">
                   <img src={image}></img>
                 </div>
               ))}
             </div>
           </div>
-          
+
           <br></br>
         </span>
-        
       ))}
 
       <p className="text-sm text-gray-500 mt-10">

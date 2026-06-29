@@ -1,14 +1,14 @@
-import { Head, usePage, router } from "@inertiajs/react"
+import { Head, usePage, router } from '@inertiajs/react'
 
 export default function Home() {
   const { sign_out_path } = usePage().props as { sign_out_path: string }
 
   const navItems = [
-    { label: "Projects", href: "/projects" },
-    { label: "Shop", href: "/shop" },
-    { label: "Explore", href: "/explore" },
-    { label: "FAQ", href: "/faq" },
-    { label: "Logout", href: sign_out_path, isLogout: true },
+    { label: 'Projects', href: '/projects' },
+    { label: 'Shop', href: '/shop' },
+    { label: 'Explore', href: '/explore' },
+    { label: 'FAQ', href: '/faq' },
+    { label: 'Logout', href: sign_out_path, isLogout: true },
   ]
 
   return (

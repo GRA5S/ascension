@@ -1,6 +1,6 @@
-import { usePage } from "@inertiajs/react"
-import { useEffect } from "react"
-import { toast } from "sonner"
+import { usePage } from '@inertiajs/react'
+import { useEffect } from 'react'
+import { toast } from 'sonner'
 
 export function useFlash() {
   const { flash } = usePage().props as { flash: Record<string, string> }

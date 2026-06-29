@@ -1,7 +1,7 @@
-import { Head } from "@inertiajs/react"
+import { Head } from '@inertiajs/react'
 
-import config from "../assets/error-config.json"
-import "../assets/error-page.css"
+import config from '../assets/error-config.json'
+import '../assets/error-page.css'
 
 type ErrorEntry = {
   title: string
@@ -13,18 +13,18 @@ function getEntry(status: number): ErrorEntry {
   const key = String(status) as keyof typeof config.errors
   return (
     config.errors[key] ?? {
-      title: "Unexpected Error",
-      description: "An unexpected error occurred.",
-      cta: "Go Home →",
+      title: 'Unexpected Error',
+      description: 'An unexpected error occurred.',
+      cta: 'Go Home →',
     }
   )
 }
 
 function statusClass(status: number) {
-  if (status === 404) return "error-page--404"
-  if (status === 422 || status === 400) return "error-page--422"
-  if (status >= 500) return "error-page--500"
-  return ""
+  if (status === 404) return 'error-page--404'
+  if (status === 422 || status === 400) return 'error-page--422'
+  if (status >= 500) return 'error-page--500'
+  return ''
 }
 
 /**
@@ -32,7 +32,7 @@ function statusClass(status: number) {
  * Single-word titles are fully italic.
  */
 function TitleText({ title }: { title: string }) {
-  const lastSpace = title.lastIndexOf(" ")
+  const lastSpace = title.lastIndexOf(' ')
   if (lastSpace === -1) {
     return <span className="error-page__title-italic">{title}</span>
   }

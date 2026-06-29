@@ -1,8 +1,8 @@
-import type { LucideIcon } from "lucide-react"
+import type { LucideIcon } from 'lucide-react'
 
 export interface Auth {
   user: User | null
-  session: Pick<Session, "id"> | null
+  session: Pick<Session, 'id'> | null
 }
 
 export interface BreadcrumbItem {
@@ -35,7 +35,7 @@ export interface User {
   verified: boolean
   created_at: string
   updated_at: string
-  hackatime_projects?: { name: string; text: string; hours: number; minutes: number; total_seconds: number;  }[]
+  hackatime_projects?: { name: string; text: string; hours: number; minutes: number; total_seconds: number }[]
   [key: string]: unknown
 }
 

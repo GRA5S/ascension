@@ -1,7 +1,7 @@
-import type { ReactNode } from "react"
+import type { ReactNode } from 'react'
 
-import { Toaster } from "@/components/ui/sonner"
-import { useFlash } from "@/hooks/use-flash"
+import { Toaster } from '@/components/ui/sonner'
+import { useFlash } from '@/hooks/use-flash'
 
 interface PersistentLayoutProps {
   children: ReactNode

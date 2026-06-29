@@ -1,8 +1,8 @@
-import { usePage } from "@inertiajs/react"
-import { useEffect } from "react"
-import { toast } from "sonner"
+import { usePage } from '@inertiajs/react'
+import { useEffect } from 'react'
+import { toast } from 'sonner'
 
-import type { FlashData } from "@/types"
+import type { FlashData } from '@/types'
 
 function showFlash(flash: FlashData) {
   if (flash.alert) toast.error(flash.alert)

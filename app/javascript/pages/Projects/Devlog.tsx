@@ -2,19 +2,13 @@ import { useState } from 'react'
 import { useForm, usePage } from '@inertiajs/react'
 import type { Devlog, SharedProps } from '@/types'
 
-export default function DevlogForm({
-  devlog,
-  submit_url
-}: {
-  devlog: Devlog
-  submit_url: string
-}) {
+export default function DevlogForm({ devlog, submit_url }: { devlog: Devlog; submit_url: string }) {
   const { errors, auth } = usePage<SharedProps>().props
 
   const form = useForm({
     title: devlog.title,
     body: devlog.body,
-    images: devlog.images
+    images: devlog.images,
   })
 
   const [imageUrl, setImageUrl] = useState('')
@@ -27,7 +21,10 @@ export default function DevlogForm({
   }
 
   function removeImage(url: string) {
-    form.setData('images', form.data.images.filter(i => i !== url))
+    form.setData(
+      'images',
+      form.data.images.filter((i) => i !== url),
+    )
   }
 
   function submit(e: React.FormEvent) {
@@ -55,7 +52,9 @@ export default function DevlogForm({
         )}
 
         <div>
-          <label htmlFor="title" className="block text-sm font-medium text-gray-700">Title</label>
+          <label htmlFor="title" className="block text-sm font-medium text-gray-700">
+            Title
+          </label>
           <input
             type="text"
             id="title"
@@ -67,7 +66,9 @@ export default function DevlogForm({
         </div>
 
         <div>
-          <label htmlFor="body" className="block text-sm font-medium text-gray-700">Body</label>
+          <label htmlFor="body" className="block text-sm font-medium text-gray-700">
+            Body
+          </label>
           <textarea
             id="body"
             value={form.data.body}
@@ -88,7 +89,11 @@ export default function DevlogForm({
               placeholder="https://"
               className="flex-1 border border-gray-300 rounded px-3 py-2"
             />
-            <button type="button" onClick={addImage} className="bg-gray-200 px-4 py-2 rounded hover:bg-gray-300 cursor-pointer shrink-0">
+            <button
+              type="button"
+              onClick={addImage}
+              className="bg-gray-200 px-4 py-2 rounded hover:bg-gray-300 cursor-pointer shrink-0"
+            >
               Add
             </button>
           </div>
