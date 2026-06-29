@@ -17,10 +17,10 @@
 #                       rails_health_check GET    /up(.:format)                                                                                     rails/health#show
 #                                     root GET    /                                                                                                 landing#index
 #                                   signin GET    /auth/hca/start(.:format)                                                                         auth#new
-#                             hca_callback GET    /auth/hca/callback(.:format)                                                                      auth#create
+#                             hca_callback GET    /auth/hackclub/callback(.:format)                                                                 auth#create
 #                                  signout DELETE /auth/signout(.:format)                                                                           auth#destroy
-#                                    sorry GET    /sorry(.:format)                                                                                  bans#show
-#                                     home GET    /home(.:format)                                                                                   home#index
+#                           devlog_project GET    /projects/:id/devlog(.:format)                                                                    projects#devlog
+#                          project_devlogs POST   /projects/:project_id/devlogs(.:format)                                                           devlogs#create
 #                                 projects GET    /projects(.:format)                                                                               projects#index
 #                                          POST   /projects(.:format)                                                                               projects#create
 #                              new_project GET    /projects/new(.:format)                                                                           projects#new
@@ -29,10 +29,16 @@
 #                                          PATCH  /projects/:id(.:format)                                                                           projects#update
 #                                          PUT    /projects/:id(.:format)                                                                           projects#update
 #                                          DELETE /projects/:id(.:format)                                                                           projects#destroy
+#                                    ships POST   /ships(.:format)                                                                                  ships#create
+#                                    sorry GET    /sorry(.:format)                                                                                  bans#show
+#                                     home GET    /home(.:format)                                                                                   home#index
 #                                     docs GET    /docs(.:format)                                                                                   markdown#show
 #                                      doc GET    /docs/*slug(.:format)                                                                             markdown#show
+#                                  landing GET    /landing(.:format)                                                                                landing#index
+#                                    rsvps POST   /rsvps(.:format)                                                                                  rsvps#create
 #                          api_v1_projects GET    /api/v1/projects(.:format)                                                                        api/v1/projects#index
 #                           api_v1_project GET    /api/v1/projects/:id(.:format)                                                                    api/v1/projects#show
+#                                                 /*path(.:format)                                                                                  errors#not_found
 #         turbo_recede_historical_location GET    /recede_historical_location(.:format)                                                             turbo/native/navigation#recede
 #         turbo_resume_historical_location GET    /resume_historical_location(.:format)                                                             turbo/native/navigation#resume
 #        turbo_refresh_historical_location GET    /refresh_historical_location(.:format)                                                            turbo/native/navigation#refresh
