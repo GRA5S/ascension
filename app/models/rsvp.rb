@@ -17,7 +17,7 @@
 class Rsvp < ApplicationRecord
   before_validation :normalize_email
   # instead of validates :email, uniqueness: {case_sensitive: false}, we add a case-insensitive unique index in the database for better performanc
-  validates :email, presence: true, format: {with: URI::MailTo::EMAIL_REGEXP}, uniqueness: {case_sensitive: false}
+  validates :email, presence: true, format: { with: URI::MailTo::EMAIL_REGEXP }, uniqueness: { case_sensitive: false }
   validates :submitted_at, presence: true
   validate :email_must_be_valid_for_delivery
 

@@ -7,7 +7,7 @@ Rails.application.config.after_initialize do
   if posthog_key.present?
     PostHog.init do |config|
       config.api_key = posthog_key
-      config.host = posthog_host || 'https://us.i.posthog.com'
+      config.host = posthog_host || "https://us.i.posthog.com"
     end
 
     PostHog::Rails.configure do |config|
@@ -16,6 +16,4 @@ Rails.application.config.after_initialize do
       config.auto_instrument_active_job = true
     end
   end
-
 end
-

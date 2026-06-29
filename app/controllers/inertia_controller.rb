@@ -23,7 +23,7 @@ class InertiaController < ApplicationController
           updated_at: user.updated_at
         }
       end,
-      session: current_user ? {id: request.session.id.to_s} : nil
+      session: current_user ? { id: request.session.id.to_s } : nil
     }
   }
 end

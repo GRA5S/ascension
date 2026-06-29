@@ -7,7 +7,7 @@ module HcaService
   module_function
 
   def host
-    # if Rails.env.production?
+      # if Rails.env.production?
       "https://auth.hackclub.com"
     # else
     #   "https://hca.dinosaurbbq.org"

@@ -5,7 +5,7 @@ class SyncRsvpToLoopsJob < ApplicationJob
 
   def perform(rsvp_id)
     return unless loops_sync_enabled?
-    
+
     api_key = Rails.application.credentials.dig(:loops, :api_key) || ENV["LOOPS_API_KEY"]
     return if api_key.blank?
 
@@ -28,7 +28,7 @@ class SyncRsvpToLoopsJob < ApplicationJob
     PostHog.capture(
       distinct_id: rsvp.email,
       event: "loops_sync_completed",
-      properties: {rsvp_id: rsvp_id}
+      properties: { rsvp_id: rsvp_id }
     )
   rescue LoopsSdk::RateLimitError => e
     Rails.logger.error("Loops Rate Limit WHILE Rsvp #{rsvp_id}: #{e.message}")
@@ -36,7 +36,7 @@ class SyncRsvpToLoopsJob < ApplicationJob
     PostHog.capture(
       distinct_id: rsvp&.email || "anonymous",
       event: "loops_sync_failed",
-      properties: {rsvp_id: rsvp_id, error_type: "rate_limit", error_message: e.message}
+      properties: { rsvp_id: rsvp_id, error_type: "rate_limit", error_message: e.message }
     )
   rescue LoopsSdk::APIError => e
     message = e.respond_to?(:json) ? e.json&.fetch("message", e.message) : e.message
@@ -45,20 +45,20 @@ class SyncRsvpToLoopsJob < ApplicationJob
     PostHog.capture(
       distinct_id: rsvp&.email || "anonymous",
       event: "loops_sync_failed",
-      properties: {rsvp_id: rsvp_id, error_type: "api_error", error_message: message}
+      properties: { rsvp_id: rsvp_id, error_type: "api_error", error_message: message }
     )
   rescue StandardError => e
     Rails.logger.error("Unknown Loops Error for RSVP #{rsvp_id}: #{e.class} - #{e.message}")
   end
 
   private
-# don't sync loops in a test environment and allow the ability to disable
+  # don't sync loops in a test environment and allow the ability to disable
   def loops_sync_enabled?
     return false if Rails.env.test?
 
     credentials_value = Rails.application.credentials.dig(:loops, :sync_enabled)
     env_value = ENV["LOOPS_SYNC_ENABLED"]
-    
+
     value = credentials_value.presence || env_value
     return true if value.nil?
 
@@ -66,7 +66,7 @@ class SyncRsvpToLoopsJob < ApplicationJob
   end
 
   def event_name
-    Rails.application.credentials.dig(:loops, :signup_event_name).presence || 
+    Rails.application.credentials.dig(:loops, :signup_event_name).presence ||
       ENV["LOOPS_SIGNUP_EVENT_NAME"].presence || "RSVP"
   end
 

@@ -5,8 +5,8 @@ require "json"
 require "net/http"
 
 class RsvpsController < InertiaController
-  allow_unauthenticated_access only: [:create]
-  skip_before_action :redirect_banned_user!, only: [:create]
+  allow_unauthenticated_access only: [ :create ]
+  skip_before_action :redirect_banned_user!, only: [ :create ]
 
   # rate limit, by ip, otherwise loops will do it for us
   MAX_RSVPS_PER_WINDOW = 5
@@ -34,29 +34,29 @@ class RsvpsController < InertiaController
       if posthog_enabled
         PostHog.identify(
           distinct_id: rsvp.email,
-          properties: {email: rsvp.email}
+          properties: { email: rsvp.email }
         )
         PostHog.capture(
           distinct_id: rsvp.email,
           event: "rsvp_submitted",
-          properties: {ip_address: rsvp.ip_address}
+          properties: { ip_address: rsvp.ip_address }
         )
       end
 
       redirect_to landing_path, notice: "We got you! Cya there!"
     else
       Rails.logger.error("RSVP validation failed: #{rsvp.errors.full_messages}")
-      
+
       # PostHog: Track failed RSVP submission
       if posthog_enabled
         PostHog.capture(
           distinct_id: rsvp_params[:email].presence || "anonymous",
           event: "rsvp_failed",
-          properties: {errors: rsvp.errors.to_hash(true)}
+          properties: { errors: rsvp.errors.to_hash(true) }
         )
       end
 
-      redirect_back_or_to landing_path, inertia: {errors: rsvp.errors.to_hash(true)}
+      redirect_back_or_to landing_path, inertia: { errors: rsvp.errors.to_hash(true) }
     end
   end
 

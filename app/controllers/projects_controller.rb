@@ -16,7 +16,7 @@ class ProjectsController < ApplicationController
       pagy: pagy_props(@pagy),
       query: params[:query].to_s,
       show_new_modal: params[:new] == "true",
-      hackatime_projects: hackatime_list # Pass explicitly here!
+      hackatime_projects: hackatime_list
     }
   end
 
@@ -118,7 +118,7 @@ class ProjectsController < ApplicationController
       discarded_at: project.discarded_at,
       tags: project.tags,
       user_display_name: project.user.display_name,
-      ships_count: project.ships.size,
+      ships_count: project.ships.size
     }
   end
 
