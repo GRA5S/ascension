@@ -41,7 +41,7 @@ export default function DevlogForm({ devlog, submit_url }: { devlog: Devlog; sub
           <div className="bg-red-50 text-red-700 p-4 rounded mb-4">
             <ul>
               {Object.entries(errors).map(([field, messages]) =>
-                messages.map((msg) => (
+                (messages as string[]).map((msg: string) => (
                   <li key={`${field}-${msg}`}>
                     {field} {msg}
                   </li>

@@ -86,7 +86,7 @@ export default function ProjectsIndex({
 
                   {project.tags.length > 0 && (
                     <div className="flex flex-wrap gap-2 mt-2">
-                      {project.tags.map((tag) => (
+                      {project.tags.map((tag: string) => (
                         <span key={tag} className="bg-gray-100 text-gray-700 text-sm px-2 py-1 rounded">
                           {tag}
                         </span>

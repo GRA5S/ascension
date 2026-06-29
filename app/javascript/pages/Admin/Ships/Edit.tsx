@@ -28,7 +28,7 @@ export default function AdminShipsEdit({ ship, statuses }: { ship: ShipForm; sta
           <div className="bg-red-50 text-red-700 p-4 rounded mb-4">
             <ul>
               {Object.entries(errors).map(([field, messages]) =>
-                messages.map((msg) => (
+                (messages as string[]).map((msg: string) => (
                   <li key={`${field}-${msg}`}>
                     {field} {msg}
                   </li>
@@ -62,7 +62,7 @@ export default function AdminShipsEdit({ ship, statuses }: { ship: ShipForm; sta
           </label>
           <textarea
             id="feedback"
-            value={form.data.feedback}
+            value={form.data.feedback ?? ''}
             onChange={(e) => form.setData('feedback', e.target.value)}
             rows={4}
             className="mt-1 block w-full border border-gray-300 rounded px-3 py-2"
@@ -76,7 +76,7 @@ export default function AdminShipsEdit({ ship, statuses }: { ship: ShipForm; sta
           <input
             type="text"
             id="justification"
-            value={form.data.justification}
+            value={form.data.justification ?? ''}
             onChange={(e) => form.setData('justification', e.target.value)}
             className="mt-1 block w-full border border-gray-300 rounded px-3 py-2"
           />

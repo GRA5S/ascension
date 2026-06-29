@@ -84,3 +84,86 @@ export interface Session {
   ip_address: string
   created_at: string
 }
+
+export interface PagyProps {
+  page: number
+  next: number | null
+  prev: number | null
+  pages: number
+  count: number
+}
+
+export interface SharedProps {
+  errors: any
+  flash: Record<string, string>
+  sign_out_path: string
+}
+
+export interface ProjectCard {
+  id: number
+  name: string
+  description: string | null
+  tags: string[]
+  user_display_name: string
+  ships_count: number
+  is_unlisted: boolean
+  discarded_at: string | null
+}
+
+export interface AdminProjectRow extends ProjectCard {
+  is_discarded: boolean
+  user_id: number
+  created_at: string
+}
+
+export interface AdminProjectDetail extends AdminProjectRow {
+  demo_link: string | null
+  repo_link: string | null
+}
+
+export interface AdminShipRow {
+  id: number
+  status: string
+  feedback: string | null
+  project_name: string
+  user_display_name: string
+  reviewer_display_name: string | null
+  created_at: string
+}
+
+export interface AdminShipDetail extends AdminShipRow {
+  approved_seconds: number | null
+  justification: string | null
+  frozen_demo_link: string | null
+  frozen_repo_link: string | null
+}
+
+export interface AdminUserRow {
+  id: number
+  name: string
+  email: string
+  display_name: string
+  is_discarded: boolean
+  roles: string[]
+  projects_count: number
+  created_at: string
+}
+
+export interface AdminUserDetail extends AdminUserRow {
+  avatar: string
+  timezone: string
+  is_banned: boolean
+  discarded_at: string | null
+}
+
+export interface ShipForm {
+  id: number
+  project_name: string
+  user_display_name: string
+  status: string
+  feedback: string | null
+  justification: string | null
+  approved_seconds: number | null
+  setData: (key: string, value: any) => void
+  patch: (url: string) => void
+}
