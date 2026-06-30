@@ -1,4 +1,8 @@
-@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=Instrument+Serif:ital@0;1&display=swap');
+
+@layer theme, base, components, utilities;
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/utilities.css" layer(utilities);
 
 @font-face {
   font-family: "PP Editorial New";
@@ -150,30 +154,30 @@
   --animate-accordion-up: accordion-up 0.2s ease-out;
 
   @keyframes accordion-down {
-    from {
-      height: 0;
-    }
-    to {
-      height: var(--radix-accordion-content-height);
-    }
+  from {
+    height: 0;
+  }
+  to {
+    height: var(--radix-accordion-content-height);
+  }
   }
 
   @keyframes accordion-up {
-    from {
-      height: var(--radix-accordion-content-height);
-    }
-    to {
-      height: 0;
-    }
+  from {
+    height: var(--radix-accordion-content-height);
+  }
+  to {
+    height: 0;
+  }
   }
 }
 
 @layer base {
   * {
-    @apply border-border outline-ring/50;
+  @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground antialiased;
+  @apply bg-background text-foreground antialiased;
   }
 }
 
@@ -196,4 +200,202 @@
 
 .nav-link:hover {
   color: #f9eabf;
+}
+
+
+/* basic css reset/fonts*/
+
+:root {
+  /* fonts */
+  --heading-font: 'Instrument Serif', serif;
+  --body-font: 'Instrument Sans', sans-serif;
+  /* colors */
+  --navy: #0A3474;
+  --cream: #F8F5E9;
+  --yellow: #F9EABF;
+  --blue: #C2E8F3;
+  --purple: #928DDF;
+  /* defaults */
+  --outline-width: 3px;
+  --outline: var(--outline-width) solid var(--navy);
+  color: var(--navy);
+}
+
+body {
+  background-color: var(--cream);
+  color: var(--navy);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--heading-font);
+  margin: 0;
+}
+
+p {
+  font-family: var(--body-font);
+  margin: 0;
+}
+
+button {
+  font-family: var(--heading-font);
+  color: inherit;
+  font-size: inherit;
+}
+
+input, select, textarea {
+  font-family: inherit;
+  color: inherit;
+  font-size: inherit;
+}
+
+/* projects page */
+div.projects-container {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 1.5rem 2rem;
+  box-sizing: border-box;
+}
+
+/* project card css */
+
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
+  grid-auto-flow: row;
+  gap: 1rem;
+}
+
+a.project-card {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  width: 100%;
+  aspect-ratio: 5/4;
+  border: var(--outline);
+  border-radius: 1rem;
+  /* overflow: hidden; */
+  background-color: color-mix(in srgb, var(--card-bg) 60%, transparent);
+  will-change: transform;
+  transform: translateY(0px);
+  transition: transform 600ms cubic-bezier(0.3, 0.7, 0.4, 1);
+  isolation: isolate;
+  z-index: 5;
+}
+
+a.project-card:hover {
+  transform: translateY(-2px) !important;
+  transition: transform 250ms cubic-bezier(0.3, 0.7, 0.4, 1.5);
+}
+
+a.project-card:active {
+  transform: translateY(2px) !important;
+  transition: transform 34ms;
+}
+
+a.project-card::before {
+  /* shadow */
+  content: "";
+  position: absolute;
+  border-radius: 1rem;
+  outline: var(--outline);
+  background-color: var(--navy);
+  top: 8px;
+  width: 100%;
+  height: 100%;
+  z-index: -2;
+  opacity: 0.9;
+  /* animation */
+  transform: translateY(0px);
+  will-change: opacity, transform;
+  transition: transform 600ms cubic-bezier(0.3, 0.7, 0.4, 1), opacity 600ms cubic-bezier(0.3, 0.7, 0.4, 1);
+}
+
+a.project-card:hover::before {
+  transform: translateY(2px);
+  opacity: 0.85;
+  transition: transform 250ms cubic-bezier(0.3, 0.7, 0.4, 1.5), opacity 250ms cubic-bezier(0.3, 0.7, 0.4, 1.5);
+}
+
+a.project-card:active::before {
+  transform: translateY(-2px);
+  opacity: 1.0;
+  transition: transform 34ms, opacity 34ms;
+}
+a.project-card::after {
+  /* card color */
+  content: "";
+  position: absolute;
+  border-radius: 1rem;
+  outline: var(--outline);
+  width: 100%;
+  height: 100%;
+  background-color: color-mix(in srgb, var(--card-bg) 60%, var(--cream));
+  z-index: -1;
+}
+
+.project-card.has-issue::after {
+  content: '';
+  position: absolute;
+  top: -0.45rem;
+  right: -0.45rem;
+  width: 1rem;
+  height: 1rem;
+  background-color: var(--yellow);
+  border: var(--outline);
+  border-radius: 50%;
+  z-index: 10;
+}
+
+.project-card img {
+  width: 100%;
+  height: 50%;
+  object-fit: cover;
+  object-position: center;
+  border-bottom: var(--outline);
+  /* flex-shrink: 0; */
+  border-top-left-radius: calc(1rem - var(--outline-width));
+  border-top-right-radius: calc(1rem - var(--outline-width));
+}
+
+.project-card > .text {
+  margin: 0.75rem 1rem;
+  flex-grow: 1;
+  height: 50%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 0rem;;
+}
+
+a.project-card {
+  color: var(--navy);
+  text-decoration: none;
+}
+
+.project-card h1, .project-card h4 {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex-shrink: 0;
+}
+
+.project-card .text > * {
+  margin: 0;
+  line-height: 1.15;
+}
+
+.project-card h4 {
+  font-family: var(--body-font);
+  opacity: 0.75;
+  font-weight: normal;
+  text-transform: uppercase;
+}
+
+.project-card p {
+  margin: 0;
+  flex-grow: 1; 
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
+  mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
 }

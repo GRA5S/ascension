@@ -39,7 +39,7 @@ export default function ProjectsIndex({
   }
 
   return (
-    <div className="max-w-4xl mx-auto py-8">
+    <div className="projects-container">
       <div className="flex items-center justify-between mb-6">
         <h1 className="font-bold text-4xl">Projects</h1>
         <Link
@@ -69,40 +69,53 @@ export default function ProjectsIndex({
 
       {projects.length > 0 ? (
         <>
-          {projects.map((project) => (
-            <div>
-              {!project.discarded_at ? (
-                <div key={project.id} className="border rounded-lg p-4 mb-4">
-                  <div className="flex items-center justify-between">
-                    <h2 className="text-xl font-semibold">
-                      <Link href={`/projects/${project.id}`} className="hover:underline">
+          <div className="project-grid">
+            {projects.map((project) => {
+              let status: 'unshipped' | 'shipped' | 'approved' | 'issue' = 'unshipped';
+              if (project.ships_count > 0) {
+                if (globalThis === null /* TODO: replace this with actual logic to detect if the project is approved */)
+                  status = 'approved';
+                else status = 'shipped';
+              };
+              if (globalThis === null /* TODO: replace this with a check--is there any issue? (mainly, if the project has been rejected and needs something added) */) {
+                status = 'issue';
+              }
+              const statusColors: Record<'unshipped' | 'shipped' | 'approved' | 'issue', string> = {
+                unshipped: 'var(--blue)',
+                shipped: 'var(--purple)',
+                approved: 'var(--yellow)',
+                issue: 'var(--purple)'
+              }
+              const currentBg = statusColors[status] || 'var(--blue)';
+              if (project.discarded_at) return null;
+              return(
+                <Link 
+                  href={`/projects/${project.id}`} 
+                  key={project.id}
+                  className={`project-card ${status === 'issue' ? 'has-issue' : ''}`}
+                  style={{ '--card-bg': currentBg } as React.CSSProperties}
+                >
+                  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTpFb9q4YTo6wXrUBm1qz7c3jfc47rclFLEVQ&s" alt=""/>
+                  <div className="text">
+                    {/* TODO: add actual hours field */}
+                    <h4>hours fields need to go here </h4>
+                    <h1>
                         {project.name}
+                    </h1>
+                    <p>{project.description || "No description provided. Write one here!"}</p>
+                    {project.tags.length > 0 && (
+                      <div className="flex flex-wrap gap-2 mt-2">
+                        {project.tags.map((tag: string) => (
+                          <span key={tag} className="bg-white/10 text-sm px-2 py-1 rounded">{tag}</span>
+                          // need to fix styling of this to no longer use tailwind--not urgent, but technically todo
+                        ))}
+                      </div>
+                    )}
+                  </div>
                       </Link>
-                    </h2>
-                    {project.is_unlisted && <span className="text-sm text-gray-500">Unlisted</span>}
-                  </div>
-
-                  {project.description && <p className="text-gray-600 mt-2">{project.description}</p>}
-
-                  {project.tags.length > 0 && (
-                    <div className="flex flex-wrap gap-2 mt-2">
-                      {project.tags.map((tag: string) => (
-                        <span key={tag} className="bg-gray-100 text-gray-700 text-sm px-2 py-1 rounded">
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                  )}
-
-                  <div className="flex gap-4 mt-3 text-sm text-gray-500">
-                    <span>by {project.user_display_name}</span>
-                    <span>{project.ships_count} ships</span>
-                  </div>
-                </div>
-              ) : null}
-            </div>
-          ))}
-
+              );
+            })}
+          </div>
           <Pagination pagy={pagy} />
         </>
       ) : (
