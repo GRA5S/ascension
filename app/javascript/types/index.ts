@@ -110,6 +110,7 @@ export interface ProjectCard {
   discarded_at: string | null
   hours_logged: number
   devlogs_count: number
+  latest_ship_status: string | null
 }
 
 export interface AdminProjectRow extends ProjectCard {

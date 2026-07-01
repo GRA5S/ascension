@@ -120,7 +120,8 @@ class ProjectsController < ApplicationController
       user_display_name: project.user.display_name,
       ships_count: project.ships.size,
       hours_logged: project.get_hours() || 0.0,
-      devlogs_count: project.devlogs.count || 0
+      devlogs_count: project.devlogs.count || 0,
+      latest_ship_status: project.ships.order(created_at: :desc).first&.status
     }
   end
 

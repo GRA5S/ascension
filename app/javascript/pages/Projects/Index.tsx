@@ -99,12 +99,13 @@ export default function ProjectsIndex({
             {projects.map((project) => {
               let status: 'unshipped' | 'shipped' | 'approved' | 'issue' = 'unshipped';
               if (project.ships_count > 0) {
-                if (globalThis === null /* TODO: replace this with actual logic to detect if the project is approved */)
+                if (project.latest_ship_status === 'approved')
                   status = 'approved';
                 else status = 'shipped';
               };
-              if (globalThis === null /* TODO: replace this with a check--is there any issue? (mainly, if the project has been rejected and needs something added) */) {
+              if (project.latest_ship_status === 'rejected') {
                 status = 'issue';
+                // TODO: wire up logic to show the feedback in question at /projects/${project.id}, needs to display feedback & present a reship button
               }
               const statusColors: Record<'unshipped' | 'shipped' | 'approved' | 'issue', string> = {
                 unshipped: 'var(--blue)',
