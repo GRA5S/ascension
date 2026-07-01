@@ -248,6 +248,148 @@ input, select, textarea {
   font-size: inherit;
 }
 
+
+/* NAVIGATION */
+.ascension-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding-bottom: 1rem;
+  border-bottom: var(--outline);
+  font-family: var(--body-font), sans-serif;
+}
+
+.ascension-nav__logo {
+  height: 8rem;
+  width: auto;
+  display: block;
+}
+
+.ascension-nav__links {
+  display: flex;
+  gap: 1rem;
+}
+
+.ascension-nav__link {
+  font-weight: 500;
+  font-size: 1.2rem;
+  line-height: 1;
+  margin-top: -1rem;
+  color: var(--navy);
+  opacity: 0.6;
+  text-decoration: none;
+  transition: opacity 0.2s ease-out;
+}
+
+.ascension-nav__link:hover {
+  opacity: 0.5;
+}
+
+.ascension-nav__link:active {
+  opacity: 1;
+}
+
+.ascension-nav__link--active {
+  opacity: 1;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+}
+
+/* --- THE ACCOUNT PILL UTILITIES --- */
+.ascension-nav__right {
+  position: relative;
+}
+
+.user-pill {
+  position: relative;
+  display: flex;
+  align-items: center;
+  border: var(--outline);
+  border-radius: 9999px;
+  background-color: color-mix(in srgb, var(--cream) 85%, white);
+  box-shadow: 0 4px 0px var(--navy); 
+  overflow: visible;
+  transform: translateY(2rem);
+}
+
+
+.user-pill__name {
+  padding: 0 1rem;
+  font-weight: bold;
+  color: var(--navy);
+}
+
+.user-pill__trigger {
+  position: relative;
+  border: none;
+  border-left: var(--outline);
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  background-color: var(--yellow);
+  border-top-right-radius: calc(50% + var(--outline-width));
+  border-bottom-right-radius: calc(50% + var(--outline-width));
+  display: flex;
+  align-items: center;
+  font-family: var(--body-font), sans-serif;
+  font-weight: 400;
+  color: var(--yellow);
+}
+
+
+.user-pill__trigger::after {
+  content: "V";
+  position: absolute;
+  right: 0;
+  border: none;
+  border-left: var(--outline);
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  background-color: var(--yellow);
+  border-top-right-radius: calc(50% + var(--outline-width));
+  border-bottom-right-radius: calc(50% + var(--outline-width));
+  display: flex;
+  align-items: center;
+  font-family: var(--body-font), sans-serif;
+  font-weight: 400;
+  transition: transform 0.2s ease-out;
+  color: var(--navy);
+}
+
+.user-pill__trigger--open::after {
+  transform: scaleY(-1);
+}
+
+/* --- POPUP ACTIONS DROPDOWN COMPONENT --- */
+.user-pill__dropdown {
+  position: absolute;
+  top: calc(100% - 2px + 2rem);
+  right: 0;
+  background: var(--cream);
+  border: var(--outline);
+  border-radius: 1rem;
+  z-index: 1000;
+  background-color: color-mix(in srgb, var(--yellow) 30%, var(--cream));
+}
+
+.user-pill__dropdown-item {
+  width: 100%;
+  padding: 0.25rem 0.5rem;
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+  font-family: var(--body-font), sans-serif;
+  opacity: 0.9;
+  transform: opacity 0.2s ease-out;
+}
+
+.user-pill__dropdown-item:hover {
+  opacity: 0.75;
+}
+
+.user-pill__dropdown-item:active {
+  opacity: 1;
+}
+
 /* projects page */
 div.projects-container {
   width: 100%;
@@ -271,7 +413,7 @@ div.projects-container {
   flex-grow: 1;
   border-radius: 1rem;
   border: var(--outline);
-  background-color: color-mix(in srgb, white 60%, transparent);
+  background-color: color-mix(in srgb, var(--cream) 75%, white);
   /* -webkit-text-fill-color: color-mix(in srgb, var(--navy) 65%, transparent); */
   font-family: var(--body-font);
 }

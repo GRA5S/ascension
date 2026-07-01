@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { router, Link } from '@inertiajs/react'
+import { router, Link, usePage } from '@inertiajs/react'
 import Pagination from '@/components/Pagination'
 import type { ProjectCard, PagyProps } from '@/types'
 import ProjectsForm from './Form'
@@ -17,7 +17,8 @@ export default function ProjectsIndex({
   show_new_modal?: boolean
   hackatime_projects: any[]
 }) {
-  const [searchQuery, setSearchQuery] = useState(query)
+  const [searchQuery, setSearchQuery] = useState(query);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
 
   function search(e: React.FormEvent) {
     e.preventDefault()
@@ -27,6 +28,13 @@ export default function ProjectsIndex({
   function closeModal() {
     router.get('/projects', {}, { preserveState: true, preserveScroll: true })
   }
+
+  const hoursLogged = projects.reduce((sum, project) => {
+    return project.discarded_at ? sum : sum + (project.hours_logged || 0);
+  }, 0);
+  const devlogsPosted = projects.reduce((sum, project) => {
+    return project.discarded_at ? sum : sum + (project.devlogs_count || 0);
+  }, 0);
 
   const emptyProjectTemplate = {
     name: '',
@@ -38,15 +46,44 @@ export default function ProjectsIndex({
     hackatime_projects: [],
   }
 
-  const hoursLogged = projects.reduce((sum, project) => {
-    return project.discarded_at ? sum : sum + (project.hours_logged || 0);
-  }, 0);
-  const devlogsPosted = projects.reduce((sum, project) => {
-    return project.discarded_at ? sum : sum + (project.devlogs_count || 0);
-  }, 0);
+  const { auth } = usePage<{auth: { user: { display_name: string} | null } }>().props;
+  const user = auth?.user;
 
   return (
     <div className="projects-container">
+      <nav className="ascension-nav">
+        <div className="ascension-nav__left">
+          <img src="/static-assets/wordmark.png" alt="Hack Club Ascension" className="ascension-nav__logo"/>
+          <div className="ascension-nav__links">
+            <Link href="/projects" className="ascension-nav__link ascension-nav__link--active">PROJECTS</Link>
+            <Link href="/shop" className="ascension-nav__link">SHOP</Link>
+            <Link href="/explore" className="ascension-nav__link">EXPLORE</Link>
+          </div>
+        </div>
+        {user && (
+          <div className="ascension-nav__right">
+            <div className="user-pill">
+              <span className="user-pill__name">{user?.display_name ? user.display_name.toUpperCase() : 'ACCOUNT'}</span>
+              <button
+                className={`user-pill__trigger ${dropdownOpen ? 'user-pill__trigger--open' : ''}`}
+                onClick={() => setDropdownOpen(!dropdownOpen)}
+                aria-label="Toggle user menu"
+              >V</button>
+            </div>
+              {dropdownOpen && (
+                <div className="user-pill__dropdown">
+                  <Link 
+                    href="/auth/signout" 
+                    method="delete" 
+                    as="button" 
+                    className="user-pill__dropdown-item"
+                  >Sign Out</Link>
+                </div>
+              )}
+          </div>
+        )}
+      </nav>
+
       <header className="projects-header">
         <div>
           <h1 className="projects-header__heading">PROJECTS</h1>
