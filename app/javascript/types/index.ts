@@ -108,6 +108,8 @@ export interface ProjectCard {
   ships_count: number
   is_unlisted: boolean
   discarded_at: string | null
+  hours_logged: number
+  devlogs_count: number
 }
 
 export interface AdminProjectRow extends ProjectCard {

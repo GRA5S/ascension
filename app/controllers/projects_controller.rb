@@ -118,7 +118,9 @@ class ProjectsController < ApplicationController
       discarded_at: project.discarded_at,
       tags: project.tags,
       user_display_name: project.user.display_name,
-      ships_count: project.ships.size
+      ships_count: project.ships.size,
+      hours_logged: project.get_hours() || 0.0,
+      devlogs_count: project.devlogs.count || 0
     }
   end
 

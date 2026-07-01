@@ -38,9 +38,12 @@ export default function ProjectsIndex({
     hackatime_projects: [],
   }
 
-  // TODO: make these dynamic instead of arbitrary placeholder numbers
-  const hoursLogged = 6.02;
-  const devlogsPosted = 5;
+  const hoursLogged = projects.reduce((sum, project) => {
+    return project.discarded_at ? sum : sum + (project.hours_logged || 0);
+  }, 0);
+  const devlogsPosted = projects.reduce((sum, project) => {
+    return project.discarded_at ? sum : sum + (project.devlogs_count || 0);
+  }, 0);
 
   return (
     <div className="projects-container">
@@ -120,8 +123,7 @@ export default function ProjectsIndex({
                 >
                   <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTpFb9q4YTo6wXrUBm1qz7c3jfc47rclFLEVQ&s" alt=""/>
                   <div className="text">
-                    {/* TODO: add actual hours field */}
-                    <h4>hours fields need to go here </h4>
+                    <h4>{Number(project.hours_logged).toFixed(1)} hrs logged</h4>
                     <h1>
                         {project.name}
                     </h1>
