@@ -42,14 +42,6 @@ export default function ProjectsIndex({
     <div className="projects-container">
       <div className="flex items-center justify-between mb-6">
         <h1 className="font-bold text-4xl">Projects</h1>
-        <Link
-          href="/projects?new=true"
-          preserveState
-          preserveScroll
-          className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
-        >
-          New Project
-        </Link>
       </div>
 
       <form onSubmit={search}>
@@ -70,6 +62,15 @@ export default function ProjectsIndex({
       {projects.length > 0 ? (
         <>
           <div className="project-grid">
+            <Link
+              href="/projects?new=true"
+              preserveState
+              preserveScroll
+              className="project-card project-card--new"
+            >
+              <h1>+</h1>
+              <h3>New Project</h3>
+            </Link>
             {projects.map((project) => {
               let status: 'unshipped' | 'shipped' | 'approved' | 'issue' = 'unshipped';
               if (project.ships_count > 0) {
@@ -119,7 +120,19 @@ export default function ProjectsIndex({
           <Pagination pagy={pagy} />
         </>
       ) : (
-        <p className="text-gray-500">No projects yet.</p>
+        <>
+          <div className="project-grid">
+            <Link
+              href="/projects?new=true"
+              preserveState
+              preserveScroll
+              className="project-card project-card--new"
+            >
+              New Project
+            </Link>
+          </div>
+          <p className="text-gray-500">No projects yet.</p>
+        </>
       )}
       {show_new_modal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm">
