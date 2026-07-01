@@ -118,10 +118,9 @@ class ProjectsController < ApplicationController
       discarded_at: project.discarded_at,
       tags: project.tags,
       user_display_name: project.user.display_name,
-      ships_count: project.ships.size,
+      ships: project.ships,
       hours_logged: project.get_hours() || 0.0,
       devlogs_count: project.devlogs.count || 0,
-      latest_ship_status: project.ships.order(created_at: :desc).first&.status
     }
   end
 

@@ -55,7 +55,19 @@ export interface Devlog {
   body: string
   images: string[]
 }
-
+export interface Ship {
+  id?: number
+  approved_seconds: number
+  feedback: string
+  frozen_demo_link: string
+  frozen_hca_data: string
+  frozen_repo_link: string
+  frozen_screenshot: string
+  justification: string
+  status: string
+  project_id: number
+  reviewer_id: number
+}
 export interface DevlogDetail {
   id: number
   title: string
@@ -105,12 +117,11 @@ export interface ProjectCard {
   description: string | null
   tags: string[]
   user_display_name: string
-  ships_count: number
+  ships: Ship[]
   is_unlisted: boolean
   discarded_at: string | null
   hours_logged: number
   devlogs_count: number
-  latest_ship_status: string | null
 }
 
 export interface AdminProjectRow extends ProjectCard {

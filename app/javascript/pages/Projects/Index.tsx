@@ -132,24 +132,19 @@ export default function ProjectsIndex({
               <h3>New Project</h3>
             </Link>
             {projects.map((project) => {
-              let status: 'unshipped' | 'shipped' | 'approved' | 'issue' = 'unshipped'
-              if (project.ships_count > 0) {
-                if (project.latest_ship_status === 'approved') status = 'approved'
-                else status = 'shipped'
-              }
-              if (project.latest_ship_status === 'rejected') {
-                status = 'issue'
-                // TODO: wire up logic to show the feedback in question at /projects/${project.id}, needs to display feedback & present a reship button
-              }
-              const statusColors: Record<'unshipped' | 'shipped' | 'approved' | 'issue', string> = {
+              const status = project.ships.length > 0 ? project.ships.at(-1)?.status : 'unshipped'
+              // TODO: wire up logic to show the feedback in question at /projects/${project.id}, needs to display feedback & present a reship button
+              const statusColors: Record<'pending' | 'approved' | 'rejected' | 'returned' | 'unshipped', string> = {
+                pending: 'var(--purple)',
                 unshipped: 'var(--blue)',
-                shipped: 'var(--purple)',
                 approved: 'var(--yellow)',
-                issue: 'var(--purple)',
+                rejected: 'var(--purple)',
+                returned: 'var(--purple)',
               }
-              const currentBg = statusColors[status] || 'var(--blue)'
+              const currentBg = statusColors[status as keyof typeof statusColors] || 'var(--blue)'
               if (project.discarded_at) return null
               return (
+                
                 <Link
                   href={`/projects/${project.id}`}
                   key={project.id}
