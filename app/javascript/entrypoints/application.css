@@ -255,6 +255,50 @@ div.projects-container {
   margin-right: auto;
   padding: 1.5rem 2rem;
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.search-form {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+}
+
+.search-form__input {
+  flex-grow: 1;
+  border-radius: 1rem;
+  border: var(--outline);
+  background-color: color-mix(in srgb, white 75%, transparent);
+  /* -webkit-text-fill-color: color-mix(in srgb, var(--navy) 65%, transparent); */
+  font-family: var(--body-font);
+}
+
+.search-form__input::placeholder {
+  color: color-mix(in srgb, var(--navy) 65%, transparent);
+  font-style: italic;
+}
+
+.search-form__button {
+  padding: 0 0.75rem;
+  border: var(--outline);
+  border-radius: 1rem;
+  font-family: var(--body-font);
+  color: color-mix(in srgb, white 75%, var(--cream));
+  background-color: color-mix(in srgb, var(--navy) 95%, var(--blue));
+  will-change: background-color;
+  transition: background-color 0.1s ease-out;
+  cursor: pointer;
+}
+
+.search-form__button:hover {
+  background-color: color-mix(in srgb, var(--navy) 85%, var(--blue));
+}
+
+.search-form__button:active {
+  background-color: var(--navy);
 }
 
 /* project card css */
@@ -322,6 +366,7 @@ a.project-card:active::before {
   opacity: 1.0;
   transition: transform 34ms, opacity 34ms;
 }
+
 a.project-card::after {
   /* card color */
   content: "";

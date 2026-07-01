@@ -52,16 +52,16 @@ export default function ProjectsIndex({
         </Link>
       </div>
 
-      <form onSubmit={search} className="mb-6">
-        <div className="flex gap-2">
+      <form onSubmit={search}>
+        <div className="search-form">
           <input
             type="search"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search projects..."
-            className="border rounded px-3 py-2 flex-1"
+            className="search-form__input"
           />
-          <button type="submit" className="bg-gray-200 px-4 py-2 rounded hover:bg-gray-300 cursor-pointer">
+          <button type="submit" className="search-form__button">
             Search
           </button>
         </div>
