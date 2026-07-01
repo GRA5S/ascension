@@ -38,11 +38,33 @@ export default function ProjectsIndex({
     hackatime_projects: [],
   }
 
+  // TODO: make these dynamic instead of arbitrary placeholder numbers
+  const hoursLogged = 6.02;
+  const devlogsPosted = 5;
+
   return (
     <div className="projects-container">
-      <div className="flex items-center justify-between mb-6">
-        <h1 className="font-bold text-4xl">Projects</h1>
-      </div>
+      <header className="projects-header">
+        <div>
+          <h1 className="projects-header__heading">PROJECTS</h1>
+          <p>{projects.length} projects</p>
+        </div>
+        <div className="projects-header__stats">
+          <div>
+            <h1 className="projects-header__heading projects-header--muted">
+              {(hoursLogged).toFixed(1)}hrs
+            </h1>
+            <p className="projects-header--muted">logged</p>
+          </div>
+          <span className="projects-header__divider">/</span>
+          <div>
+            <h1 className="projects-header__heading">
+              {(devlogsPosted)}
+            </h1>
+            <p>devlogs</p>
+          </div>
+        </div>
+      </header>
 
       <form onSubmit={search}>
         <div className="search-form">
