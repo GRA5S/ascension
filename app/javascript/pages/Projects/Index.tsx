@@ -17,8 +17,8 @@ export default function ProjectsIndex({
   show_new_modal?: boolean
   hackatime_projects: any[]
 }) {
-  const [searchQuery, setSearchQuery] = useState(query);
-  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState(query)
+  const [dropdownOpen, setDropdownOpen] = useState(false)
 
   function search(e: React.FormEvent) {
     e.preventDefault()
@@ -30,11 +30,11 @@ export default function ProjectsIndex({
   }
 
   const hoursLogged = projects.reduce((sum, project) => {
-    return project.discarded_at ? sum : sum + (project.hours_logged || 0);
-  }, 0);
+    return project.discarded_at ? sum : sum + (project.hours_logged || 0)
+  }, 0)
   const devlogsPosted = projects.reduce((sum, project) => {
-    return project.discarded_at ? sum : sum + (project.devlogs_count || 0);
-  }, 0);
+    return project.discarded_at ? sum : sum + (project.devlogs_count || 0)
+  }, 0)
 
   const emptyProjectTemplate = {
     name: '',
@@ -46,40 +46,47 @@ export default function ProjectsIndex({
     hackatime_projects: [],
   }
 
-  const { auth } = usePage<{auth: { user: { display_name: string} | null } }>().props;
-  const user = auth?.user;
+  const { auth } = usePage<{ auth: { user: { display_name: string } | null } }>().props
+  const user = auth?.user
 
   return (
     <div className="projects-container">
       <nav className="ascension-nav">
         <div className="ascension-nav__left">
-          <img src="/static-assets/wordmark.png" alt="Hack Club Ascension" className="ascension-nav__logo"/>
+          <img src="/static-assets/wordmark.png" alt="Hack Club Ascension" className="ascension-nav__logo" />
           <div className="ascension-nav__links">
-            <Link href="/projects" className="ascension-nav__link ascension-nav__link--active">PROJECTS</Link>
-            <Link href="/shop" className="ascension-nav__link">SHOP</Link>
-            <Link href="/explore" className="ascension-nav__link">EXPLORE</Link>
+            <Link href="/projects" className="ascension-nav__link ascension-nav__link--active">
+              PROJECTS
+            </Link>
+            <Link href="/shop" className="ascension-nav__link">
+              SHOP
+            </Link>
+            <Link href="/explore" className="ascension-nav__link">
+              EXPLORE
+            </Link>
           </div>
         </div>
         {user && (
           <div className="ascension-nav__right">
             <div className="user-pill">
-              <span className="user-pill__name">{user?.display_name ? user.display_name.toUpperCase() : 'ACCOUNT'}</span>
+              <span className="user-pill__name">
+                {user?.display_name ? user.display_name.toUpperCase() : 'ACCOUNT'}
+              </span>
               <button
                 className={`user-pill__trigger ${dropdownOpen ? 'user-pill__trigger--open' : ''}`}
                 onClick={() => setDropdownOpen(!dropdownOpen)}
                 aria-label="Toggle user menu"
-              >V</button>
+              >
+                V
+              </button>
             </div>
-              {dropdownOpen && (
-                <div className="user-pill__dropdown">
-                  <Link 
-                    href="/auth/signout" 
-                    method="delete" 
-                    as="button" 
-                    className="user-pill__dropdown-item"
-                  >Sign Out</Link>
-                </div>
-              )}
+            {dropdownOpen && (
+              <div className="user-pill__dropdown">
+                <Link href="/auth/signout" method="delete" as="button" className="user-pill__dropdown-item">
+                  Sign Out
+                </Link>
+              </div>
+            )}
           </div>
         )}
       </nav>
@@ -91,16 +98,12 @@ export default function ProjectsIndex({
         </div>
         <div className="projects-header__stats">
           <div>
-            <h1 className="projects-header__heading projects-header--muted">
-              {(hoursLogged).toFixed(1)}hrs
-            </h1>
+            <h1 className="projects-header__heading projects-header--muted">{hoursLogged.toFixed(1)}hrs</h1>
             <p className="projects-header--muted">logged</p>
           </div>
           <span className="projects-header__divider">/</span>
           <div>
-            <h1 className="projects-header__heading">
-              {(devlogsPosted)}
-            </h1>
+            <h1 className="projects-header__heading">{devlogsPosted}</h1>
             <p>devlogs</p>
           </div>
         </div>
@@ -124,59 +127,56 @@ export default function ProjectsIndex({
       {projects.length > 0 ? (
         <>
           <div className="project-grid">
-            <Link
-              href="/projects?new=true"
-              preserveState
-              preserveScroll
-              className="project-card project-card--new"
-            >
+            <Link href="/projects?new=true" preserveState preserveScroll className="project-card project-card--new">
               <h1>+</h1>
               <h3>New Project</h3>
             </Link>
             {projects.map((project) => {
-              let status: 'unshipped' | 'shipped' | 'approved' | 'issue' = 'unshipped';
+              let status: 'unshipped' | 'shipped' | 'approved' | 'issue' = 'unshipped'
               if (project.ships_count > 0) {
-                if (project.latest_ship_status === 'approved')
-                  status = 'approved';
-                else status = 'shipped';
-              };
+                if (project.latest_ship_status === 'approved') status = 'approved'
+                else status = 'shipped'
+              }
               if (project.latest_ship_status === 'rejected') {
-                status = 'issue';
+                status = 'issue'
                 // TODO: wire up logic to show the feedback in question at /projects/${project.id}, needs to display feedback & present a reship button
               }
               const statusColors: Record<'unshipped' | 'shipped' | 'approved' | 'issue', string> = {
                 unshipped: 'var(--blue)',
                 shipped: 'var(--purple)',
                 approved: 'var(--yellow)',
-                issue: 'var(--purple)'
+                issue: 'var(--purple)',
               }
-              const currentBg = statusColors[status] || 'var(--blue)';
-              if (project.discarded_at) return null;
-              return(
-                <Link 
-                  href={`/projects/${project.id}`} 
+              const currentBg = statusColors[status] || 'var(--blue)'
+              if (project.discarded_at) return null
+              return (
+                <Link
+                  href={`/projects/${project.id}`}
                   key={project.id}
                   className={`project-card ${status === 'issue' ? 'has-issue' : ''}`}
                   style={{ '--card-bg': currentBg } as React.CSSProperties}
                 >
-                  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTpFb9q4YTo6wXrUBm1qz7c3jfc47rclFLEVQ&s" alt=""/>
+                  <img
+                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTpFb9q4YTo6wXrUBm1qz7c3jfc47rclFLEVQ&s"
+                    alt=""
+                  />
                   <div className="text">
                     <h4>{Number(project.hours_logged).toFixed(1)} hrs logged</h4>
-                    <h1>
-                        {project.name}
-                    </h1>
-                    <p>{project.description || "No description provided. Write one here!"}</p>
+                    <h1>{project.name}</h1>
+                    <p>{project.description || 'No description provided. Write one here!'}</p>
                     {project.tags.length > 0 && (
                       <div className="flex flex-wrap gap-2 mt-2">
                         {project.tags.map((tag: string) => (
-                          <span key={tag} className="bg-white/10 text-sm px-2 py-1 rounded">{tag}</span>
+                          <span key={tag} className="bg-white/10 text-sm px-2 py-1 rounded">
+                            {tag}
+                          </span>
                           // need to fix styling of this to no longer use tailwind--not urgent, but technically todo
                         ))}
                       </div>
                     )}
                   </div>
-                      </Link>
-              );
+                </Link>
+              )
             })}
           </div>
           <Pagination pagy={pagy} />
@@ -184,12 +184,7 @@ export default function ProjectsIndex({
       ) : (
         <>
           <div className="project-grid">
-            <Link
-              href="/projects?new=true"
-              preserveState
-              preserveScroll
-              className="project-card project-card--new"
-            >
+            <Link href="/projects?new=true" preserveState preserveScroll className="project-card project-card--new">
               New Project
             </Link>
           </div>
