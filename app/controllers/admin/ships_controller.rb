@@ -40,6 +40,7 @@ class Admin::ShipsController < Admin::ApplicationController
     authorize @ship
 
     if @ship.update(ship_params)
+      @ship.project.user.recalculate_currency!
       redirect_to admin_ship_path(@ship), notice: "Ship updated."
     else
       redirect_back fallback_location: edit_admin_ship_path(@ship), inertia: { errors: @ship.errors.messages }

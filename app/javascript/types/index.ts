@@ -55,6 +55,14 @@ export interface Devlog {
   body: string
   images: string[]
 }
+export interface ShopItem {
+  id?: number
+  name: string
+  description: string
+  image: string
+  price: number
+  active:boolean
+}
 export interface Ship {
   id?: number
   approved_seconds: number

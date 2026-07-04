@@ -4,6 +4,7 @@
 #
 #  id                  :bigint           not null, primary key
 #  avatar              :string           not null
+#  currency            :integer
 #  discarded_at        :datetime
 #  display_name        :string           not null
 #  email               :string           not null
@@ -235,6 +236,10 @@ class User < ApplicationRecord
 
   def refresh_hackatime_projects!
     update_column(:hackatime_projects, self.class.get_hackatime_projects(hca_id) || [])
+  end
+  def recalculate_currency!
+    # curency at rate of 5/hr rn 
+    update_column(:currency, (projects.joins(:ships).sum(:approved_seconds) * 5 / 60) )
   end
   private
 
