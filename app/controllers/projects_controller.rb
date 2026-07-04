@@ -132,6 +132,7 @@ class ProjectsController < ApplicationController
       demo_link: project.demo_link,
       repo_link: project.repo_link,
       is_unlisted: project.is_unlisted,
+      ships: project.ships,
       devlogs: project.devlogs.map { |d| { id: d.id, title: d.title, body: d.body, images: d.images, created_at: d.created_at } },
       tags: project.tags,
       user_display_name: project.user.display_name,

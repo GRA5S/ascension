@@ -30,6 +30,7 @@ export default function ProjectsShow({
     }
   }
 
+  let last_ship_status = project.ships.at(-1)?.status
   return (
     <div className="max-w-4xl mx-auto py-8">
       <div className="flex items-center justify-between mb-6">
@@ -53,12 +54,21 @@ export default function ProjectsShow({
         </div>
       </div>
 
+      {last_ship_status === "pending" && (
+        <span className="inline-block bg-yellow-100 text-yellow-800 text-sm px-2 py-1 rounded mb-4">review pending</span>
+      )}
+      {(last_ship_status === "rejected" || last_ship_status === "returned") && (
+        <span className="inline-block bg-red-100 text-yellow-800 text-sm px-2 py-1 rounded mb-4">rejected</span>
+      )}
+      {last_ship_status === "approved" && (
+        <span className="inline-block bg-green-100 text-yellow-800 text-sm px-2 py-1 rounded mb-4">approved</span>
+      )}
       {project.is_unlisted && (
         <span className="inline-block bg-yellow-100 text-yellow-800 text-sm px-2 py-1 rounded mb-4">Unlisted</span>
       )}
 
       {project.description && <p className="text-gray-700 mb-4">{project.description}</p>}
-      {project.description && <p className="text-gray-700 mb-4">{project.hours}hrs tracked</p>}
+      <p className="text-gray-700 mb-4">{project.hours}hrs tracked</p>
 
       {project.tags.length > 0 && (
         <div className="flex flex-wrap gap-2 mb-4">
@@ -69,7 +79,6 @@ export default function ProjectsShow({
           ))}
         </div>
       )}
-
       <div className="flex gap-4 text-sm text-gray-500 mb-6">
         {isSafeUrl(project.demo_link) && (
           <a href={project.demo_link!} target="_blank" rel="noopener" className="text-blue-600 hover:underline">

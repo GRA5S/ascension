@@ -16,11 +16,13 @@ class ProjectPolicy < ApplicationPolicy
 
   def update?
     return false if record.discarded? && !admin?
+    return false if record.ships.any? && record.ships.last.status == "pending"
     admin? || owner?
   end
 
   def destroy?
     return false if record.discarded?
+    return false if record.ships.any? && record.ships.last.status == "pending"
     admin? || owner?
   end
 

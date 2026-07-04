@@ -84,6 +84,7 @@ export interface ProjectDetail {
   repo_link: string | null
   is_unlisted: boolean
   devlogs: DevlogDetail[]
+  ships: Ship[]
   tags: string[]
   user_display_name: string
   created_at: string
