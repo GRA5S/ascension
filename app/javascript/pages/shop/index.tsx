@@ -51,8 +51,11 @@ export default function Index({
         )}
       </nav>
 
-      <header className="">
+      <header className="flex flex-row">
         <h1 className="text-5xl">SHOP</h1>
+        <div className="grow"></div>
+        <h1 className="projects-header__heading projects-header--muted">{user?.currency} currency</h1>
+          
       </header>
 
       <div className="shop-item-grid">
@@ -77,13 +80,6 @@ export default function Index({
                 </button>
               </div>
             </div>
-            // <Link
-            //   href={`/items/${item.id}`}
-            //   key={item.id}
-            //   className={`shop-item-card`}
-            // >
-            //   
-            // </Link>
           )
         })}
       </div>
