@@ -1,6 +1,6 @@
 class ShopController < ApplicationController
   def index
-    render inertia: "shop/index", props: {
+    render inertia: "shop/Index", props: {
       items: ShopItem.all.map { |i| serialize_items(i) }
     }
   end
