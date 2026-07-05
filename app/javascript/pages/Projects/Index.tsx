@@ -3,6 +3,7 @@ import { router, Link, usePage } from '@inertiajs/react'
 import Pagination from '@/components/Pagination'
 import type { ProjectCard, PagyProps } from '@/types'
 import ProjectsForm from './Form'
+import PageLayout from '@/layouts/PageLayout'
 
 export default function ProjectsIndex({
   projects,
@@ -50,47 +51,7 @@ export default function ProjectsIndex({
   const user = auth?.user
 
   return (
-    <div className="projects-container">
-      <nav className="ascension-nav">
-        <div className="ascension-nav__left">
-          <img src="/static-assets/wordmark.png" alt="Hack Club Ascension" className="ascension-nav__logo" />
-          <div className="ascension-nav__links">
-            <Link href="/projects" className="ascension-nav__link ascension-nav__link--active">
-              PROJECTS
-            </Link>
-            <Link href="/shop" className="ascension-nav__link">
-              SHOP
-            </Link>
-            <Link href="/explore" className="ascension-nav__link">
-              EXPLORE
-            </Link>
-          </div>
-        </div>
-        {user && (
-          <div className="ascension-nav__right">
-            <div className="user-pill">
-              <span className="user-pill__name">
-                {user?.display_name ? user.display_name.toUpperCase() : 'ACCOUNT'}
-              </span>
-              <button
-                className={`user-pill__trigger ${dropdownOpen ? 'user-pill__trigger--open' : ''}`}
-                onClick={() => setDropdownOpen(!dropdownOpen)}
-                aria-label="Toggle user menu"
-              >
-                V
-              </button>
-            </div>
-            {dropdownOpen && (
-              <div className="user-pill__dropdown">
-                <Link href="/auth/signout" method="delete" as="button" className="user-pill__dropdown-item">
-                  Sign Out
-                </Link>
-              </div>
-            )}
-          </div>
-        )}
-      </nav>
-
+    <>
       <header className="projects-header">
         <div>
           <h1 className="projects-header__heading">PROJECTS</h1>
@@ -209,6 +170,7 @@ export default function ProjectsIndex({
           </div>
         </div>
       )}
-    </div>
+    </>
   )
 }
+ProjectsIndex.layout = [PageLayout]

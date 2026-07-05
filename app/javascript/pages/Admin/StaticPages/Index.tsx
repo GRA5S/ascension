@@ -1,3 +1,5 @@
+import PageLayout from "@/layouts/PageLayout"
+
 export default function AdminStaticPagesIndex() {
   return (
     <div>
@@ -6,3 +8,4 @@ export default function AdminStaticPagesIndex() {
     </div>
   )
 }
+AdminStaticPagesIndex.layout = [PageLayout]

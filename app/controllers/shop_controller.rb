@@ -4,7 +4,9 @@ class ShopController < ApplicationController
       items: ShopItem.all.map { |i| serialize_items(i) }
     }
   end
+
   private
+
   def serialize_items(item)
     {
       id: item.id,
@@ -12,7 +14,7 @@ class ShopController < ApplicationController
       description: item.description,
       image: item.image,
       price: item.price,
-      active: item.active,
+      active: item.active
     }
   end
 end
