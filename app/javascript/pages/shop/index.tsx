@@ -1,7 +1,7 @@
 import { usePage } from '@inertiajs/react'
 import { ShopItem } from '@/types'
 import PageLayout from '@/layouts/PageLayout'
-export default function Index({ items }: { items: ShopItem[] }) {
+export default function ShopIndex({ items }: { items: ShopItem[] }) {
   const { auth } = usePage<{ auth: { user: { display_name: string } | null } }>().props
   const user = auth?.user
   return (
@@ -35,4 +35,4 @@ export default function Index({ items }: { items: ShopItem[] }) {
     </>
   )
 }
-Index.layout = [PageLayout]
+ShopIndex.layout = [PageLayout]

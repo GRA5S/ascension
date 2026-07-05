@@ -32,7 +32,7 @@ export default function PageLayout({ children }: { children: ReactNode }) {
                   <Link
                     key={link.href}
                     href={link.href}
-                    className={`ascension-nav__link${url.startsWith(link.href) ? ' ascension-nav__link--active' : ''}`}
+                    className={`ascension-nav__link${(url ===link.href) ? ' ascension-nav__link--active' : ''}`}
                   >
                     {link.label}
                   </Link>
