@@ -18,7 +18,6 @@ export default function PageLayout({ children }: { children: ReactNode }) {
     { href: '/explore', label: 'EXPLORE' },
     { href: '/admin/reviews', label: 'REVIEW' },
     { href: '/admin', label: 'ADMIN' },
-
   ]
 
   return (
@@ -43,9 +42,7 @@ export default function PageLayout({ children }: { children: ReactNode }) {
             {user && (
               <div className="ascension-nav__right">
                 <div className="user-pill">
-                  <span className="user-pill__name">
-                    {user.display_name.toUpperCase()}
-                  </span>
+                  <span className="user-pill__name">{user.display_name.toUpperCase()}</span>
                   <button
                     className={`user-pill__trigger ${dropdownOpen ? 'user-pill__trigger--open' : ''}`}
                     onClick={() => setDropdownOpen(!dropdownOpen)}

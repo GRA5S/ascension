@@ -54,13 +54,15 @@ export default function ProjectsShow({
         </div>
       </div>
 
-      {last_ship_status === "pending" && (
-        <span className="inline-block bg-yellow-100 text-yellow-800 text-sm px-2 py-1 rounded mb-4">review pending</span>
+      {last_ship_status === 'pending' && (
+        <span className="inline-block bg-yellow-100 text-yellow-800 text-sm px-2 py-1 rounded mb-4">
+          review pending
+        </span>
       )}
-      {(last_ship_status === "rejected" || last_ship_status === "returned") && (
+      {(last_ship_status === 'rejected' || last_ship_status === 'returned') && (
         <span className="inline-block bg-red-100 text-yellow-800 text-sm px-2 py-1 rounded mb-4">rejected</span>
       )}
-      {last_ship_status === "approved" && (
+      {last_ship_status === 'approved' && (
         <span className="inline-block bg-green-100 text-yellow-800 text-sm px-2 py-1 rounded mb-4">approved</span>
       )}
       {project.is_unlisted && (

@@ -1,7 +1,7 @@
 import { Link } from '@inertiajs/react'
 import Pagination from '@/components/Pagination'
 import type { AdminShipRow, PagyProps } from '@/types'
-import PageLayout from '@/layouts/PageLayout';
+import PageLayout from '@/layouts/PageLayout'
 
 export default function AdminShipsIndex({ ships, pagy }: { ships: AdminShipRow[]; pagy: PagyProps }) {
   return (

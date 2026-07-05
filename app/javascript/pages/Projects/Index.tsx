@@ -105,7 +105,6 @@ export default function ProjectsIndex({
               const currentBg = statusColors[status as keyof typeof statusColors] || 'var(--blue)'
               if (project.discarded_at) return null
               return (
-                
                 <Link
                   href={`/projects/${project.id}`}
                   key={project.id}

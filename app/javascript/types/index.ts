@@ -35,7 +35,7 @@ export interface User {
   verified: boolean
   created_at: string
   updated_at: string
-  currency:string
+  currency: string
   hackatime_projects?: { name: string; text: string; hours: number; minutes: number; total_seconds: number }[]
   [key: string]: unknown
 }
@@ -62,7 +62,7 @@ export interface ShopItem {
   description: string
   image: string
   price: number
-  active:boolean
+  active: boolean
 }
 export interface Ship {
   id?: number

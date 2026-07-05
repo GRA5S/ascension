@@ -238,8 +238,8 @@ class User < ApplicationRecord
     update_column(:hackatime_projects, self.class.get_hackatime_projects(hca_id) || [])
   end
   def recalculate_currency!
-    # curency at rate of 5/hr rn 
-    update_column(:currency, (projects.joins(:ships).sum(:approved_seconds) * 5 / 60) )
+    # curency at rate of 5/hr rn
+    update_column(:currency, (projects.joins(:ships).sum(:approved_seconds) * 5 / 60))
   end
   private
 

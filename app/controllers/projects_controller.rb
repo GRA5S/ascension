@@ -120,7 +120,7 @@ class ProjectsController < ApplicationController
       user_display_name: project.user.display_name,
       ships: project.ships,
       hours_logged: project.get_hours() || 0.0,
-      devlogs_count: project.devlogs.count || 0,
+      devlogs_count: project.devlogs.count || 0
     }
   end
 
