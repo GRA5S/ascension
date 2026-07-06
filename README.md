@@ -1,28 +1,21 @@
-# Hack Club Rails Starter Template
+# Ascension site
 
-This template is a very opinionated starting point for my Hack Club programs written in Rails. It is heavily inspired by, with code used from, previous Hack Club programs and services such as the Summer of Making, HCB, and Submit, as well as [24c02/thirdrail](https://github.com/24c02/thirdrail).
+the site for the unreleased ascension YSWS
 
-Is it good? I don't know, but it's good enough for me.
+it uses sam liu's [Hack Club Rails Starter Template](https://github.com/samdev-7/hc-rails-starter) 
 
-## Features
+currently part of it is hosted at https://ascension.hackclub.com but like i said its not released and not finished yet so a lot of this isnt
 
-- HCA OAuth authentication with automatic Slack profile sync
-- Role-based access control (Admin, Reviewer, User) via Pundit
-- Project CRUD with tagging, visibility controls, and soft delete
-- Ship review workflow (pending, approved, returned, rejected) with frozen data snapshots and encrypted storage
-- Admin dashboard for managing users, projects, ships, and background jobs
-- Audit trails via PaperTrail
-- File-based Markdown documentation with caching and auto-generated navigation
-- Ahoy analytics with visit tracking, geolocation, and UTM attribution
-- Rack::Attack rate limiting and request filtering
-- Solid Queue, Solid Cache, and Solid Cable for jobs, caching, and WebSockets
-- Inertia.js with React 19, Vite, and TypeScript
-- Tailwind CSS 4
-- Sentry error tracking, Skylight performance monitoring
-- Active Storage with Cloudflare R2 and image variant processing
-- Kamal deployment with Thruster for HTTP caching/compression
+###### (praying hctg reviewers dont slime me out for that... im sowwy i just wanted to ship cuz hctg is ending 🥺)
 
-## Local Development Setup
+## Demo:
+
+https://github.com/user-attachments/assets/425f4aac-d3a2-4210-99e0-b133c98dc53e
+###### ignore the shitty devlog images i swear it looked better before idk what changed ill fix that
+###### also the explore page is unimplemented thats intentional not an error
+
+
+## how to run:
 
 ### 1. Prerequisites
 
@@ -110,3 +103,6 @@ R2_ENDPOINT=https://<account_id>.r2.cloudflarestorage.com
 ---
 
 See `.env.development.example` for required environment variables.
+
+
+##### The site was submitted to [HCTG](https://game.hackclub.com/)
